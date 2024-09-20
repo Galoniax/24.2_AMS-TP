@@ -1,0 +1,9 @@
+
+:root {
+  /* ---------------- COLORS ---------------- */
+  --main-color:                       #005DA7;
+  --accent-color:                     #5ABB81;
+
+  /* ---------------- FONTS ---------------- */
+  --main-font:            'Roboto', sans-serif;
+}
