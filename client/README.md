@@ -1,9 +1,15 @@
-# Analisis y metodologia de Sistemas 
+# Creación del proyecto.
+- Versión de Node `20.16.0`.
+- Bundler: `Vite`.
 
-## Guia basica del proyecto
+## Instalar dependencias
+- `npm i --legacy-peer-deps`
 
-- Node Version:
-`20.16.0`
+## Levantar en local
+- `npm run dev`
 
-- Pasos para producción (Alojamiento Web Server)
-`npx tailwindcss -i ./src/input.css -o ./dist/output.css --minify`
+## Consideraciones
+- Antes de hacer un cambio en cualquier rama, se recomienda bastante ejecutar el siguiente comando:
+`npm run pretty` para formatear el codigo, mantener un lectura del codigo legible y eliminar imports innecesarios.
+
+- Aplicar el uso de clases que nos provee Tailwind

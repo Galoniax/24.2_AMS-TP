@@ -1,0 +1,19 @@
+/* ---------------------- Variables ---------------------- */
+$bg-main: #005da7;
+$bg-accent: #5abb81;
+$bg-white: #ffffff;
+$text-main: #000000;
+$text-accent: #5abb81;
+$navbar-height: 88px;
+
+:root {
+  /* ----------------------- Colors ----------------------- */
+  --bg-main: #{$bg-main};
+  --bg-accent: #{$bg-accent};
+  --text-main: #{$text-main};
+  --text-accent: #{$text-accent};
+  --bg-white: #{$bg-white};
+
+  /* --------------------- Dimensions --------------------- */
+  --navbar-height: #{$navbar-height};
+}
