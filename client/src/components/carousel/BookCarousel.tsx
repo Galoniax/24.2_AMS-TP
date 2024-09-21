@@ -1,10 +1,10 @@
-import { Swiper, SwiperSlide } from "swiper/react";
+import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Book } from "../../interfaces/book.interface";
-import { Navigation, Pagination } from "swiper/modules";
-import CardBook from "../cards/CardBook";
+import { Book } from '../../interfaces/book.interface';
+import { Navigation, Pagination } from 'swiper/modules';
+import CardBook from '../cards/CardBook';
 
 interface CarouselProps {
   books: Book[];
@@ -37,7 +37,7 @@ const Carousel: React.FC<CarouselProps> = ({ books }) => {
       {books.map((book) => (
         <SwiperSlide key={book.id}>
           <CardBook book={book} />
-        </SwiperSlide> 
+        </SwiperSlide>
       ))}
     </Swiper>
   );

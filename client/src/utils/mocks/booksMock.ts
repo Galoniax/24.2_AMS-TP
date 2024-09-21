@@ -69,7 +69,6 @@ export const booksMock: Book[] = [
   },
 ];
 
-
 export const allBooksMock: Book[] = [
   {
     id: 1,
@@ -202,5 +201,5 @@ export const allBooksMock: Book[] = [
       'https://th.bing.com/th/id/OIP.cy5CKAL-ULYrScP6MFdQ1AHaKy?rs=1&pid=ImgDetMain',
     isNew: true,
     author: 'Aldous Huxley',
-  }
-]
+  },
+];

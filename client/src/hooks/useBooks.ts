@@ -7,7 +7,7 @@ export const useBooks = (options?: IFilterBookOptions) => {
   const [books, setBooks] = useState<Book[]>([]);
   const [allBooks, setAllBooks] = useState<Book[]>([]);
 
- useEffect(() => {
+  useEffect(() => {
     if (options) {
       const data = fetchBooks(options);
       setBooks(data);

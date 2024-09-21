@@ -20,6 +20,6 @@ export const fetchBooks = (options?: IFilterBookOptions): Book[] => {
   return filteredBooks;
 };
 
-export const fetchAllBooks = ():Book[] => {
+export const fetchAllBooks = (): Book[] => {
   return allBooksMock;
-}
+};

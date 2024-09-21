@@ -36,7 +36,7 @@ const CardBook: React.FC<CardBookProps> = ({ book }) => {
           extraArgs={['text-[14px] flex items-center']}
           icon={<BiCartAdd />}
           iconPosition="right"
-          iconClassName='text-[20px]'
+          iconClassName="text-[20px]"
         ></Button>
       </div>
     </div>
