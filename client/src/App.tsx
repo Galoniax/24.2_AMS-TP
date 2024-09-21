@@ -1,5 +1,6 @@
-import { ToastContainer } from 'react-toastify';
 import AppRoutes from './routes/app.routes';
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 import { WindowSizeProvider } from './context/WindowsSizeProvider';
 
 function App() {
@@ -7,7 +8,7 @@ function App() {
     <WindowSizeProvider>
       <AppRoutes />
       <ToastContainer
-        position="bottom-center"
+        position="top-right"
         autoClose={5000}
         hideProgressBar={false}
         newestOnTop={false}

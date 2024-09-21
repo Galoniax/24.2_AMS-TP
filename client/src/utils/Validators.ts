@@ -18,6 +18,16 @@ export const isEmailValid = (email: string): IValidatorsModel => {
   }
 };
 
+export const isPasswordValid = (password: string): IValidatorsModel => {
+  if (password.length < 6) {
+    return {
+      errorMessage: 'La contraseña debe tener al menos 6 caracteres.',
+      hasError: true,
+    };
+  }
+  return { hasError: false };
+};
+
 export const isFullnameValid = (fullname: string): IValidatorsModel => {
   if (!/^[A-Za-zñÑáéíóúÁÉÍÓÚ\s]+$/.test(fullname)) {
     return {
