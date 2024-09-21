@@ -10,6 +10,7 @@ const Button: React.FC<ButtonProps> = ({
   icon,
   disabled = false,
   iconPosition = 'left',
+  iconClassName,
   extraArgs = [],
   onClick,
 }) => {
@@ -43,9 +44,9 @@ const Button: React.FC<ButtonProps> = ({
       whileHover={{ scale: 1.05 }}
       disabled={disabled}
     >
-      {icon && iconPosition === 'left' && <span className="mr-2">{icon}</span>}
+      {icon && iconPosition === 'left' && <span className={`mr-2 ${iconClassName}`}>{icon}</span>}
       {text}
-      {icon && iconPosition === 'right' && <span className="ml-2">{icon}</span>}
+      {icon && iconPosition === 'right' && <span className={`mr-2 ${iconClassName}`}>{icon}</span>}
     </motion.button>
   );
 };

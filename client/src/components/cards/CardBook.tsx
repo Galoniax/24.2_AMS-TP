@@ -14,7 +14,7 @@ const CardBook: React.FC<CardBookProps> = ({ book }) => {
   };
 
   return (
-    <div className="border p-4 rounded-[12px] shadow-lg w-[220px] flex flex-col items-center justify-between">
+    <div className="border p-4 rounded-[12px] shadow-lg w-[220px] h-[440px] flex flex-col items-center justify-between">
       <img
         src={book.imageUrl}
         alt={book.title}
@@ -36,6 +36,7 @@ const CardBook: React.FC<CardBookProps> = ({ book }) => {
           extraArgs={['text-[14px] flex items-center']}
           icon={<BiCartAdd />}
           iconPosition="right"
+          iconClassName='text-[20px]'
         ></Button>
       </div>
     </div>

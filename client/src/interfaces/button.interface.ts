@@ -9,8 +9,10 @@ export interface ButtonProps {
   type: 'submit' | 'reset' | 'button';
   size?: ButtonSize;
   disabled?: boolean;
-  icon?: React.ReactNode; // El ícono puede ser cualquier nodo de React
+  icon?: React.ReactNode;
   iconPosition?: IconPosition;
-  extraArgs?: string[]; // Clases adicionales de Tailwind
-  onClick?: () => void; // Callback para manejar el evento click
+  extraArgs?: string[];
+  iconClassName?: string;
+  iconSize?: number;
+  onClick?: () => void;
 }

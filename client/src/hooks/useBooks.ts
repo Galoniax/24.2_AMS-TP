@@ -1,15 +1,21 @@
 import { useEffect, useState } from 'react';
 import { Book } from '../interfaces/book.interface';
 import { IFilterBookOptions } from '../interfaces/filter-book-options.interface';
-import { fetchBooks } from '../services/bookService';
+import { fetchAllBooks, fetchBooks } from '../services/bookService';
 
 export const useBooks = (options?: IFilterBookOptions) => {
   const [books, setBooks] = useState<Book[]>([]);
+  const [allBooks, setAllBooks] = useState<Book[]>([]);
 
-  useEffect(() => {
-    const data = fetchBooks(options);
-    setBooks(data);
+ useEffect(() => {
+    if (options) {
+      const data = fetchBooks(options);
+      setBooks(data);
+    } else {
+      const allData = fetchAllBooks();
+      setAllBooks(allData);
+    }
   }, [options]);
 
-  return { books };
+  return { books, allBooks };
 };

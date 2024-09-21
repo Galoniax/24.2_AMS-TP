@@ -1,6 +1,7 @@
 import AppRoutes from './routes/app.routes';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import 'react-datepicker/dist/react-datepicker.css';
 import { WindowSizeProvider } from './context/WindowsSizeProvider';
 
 function App() {

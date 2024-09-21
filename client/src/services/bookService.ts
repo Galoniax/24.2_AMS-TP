@@ -1,6 +1,6 @@
 import { Book } from '../interfaces/book.interface';
 import { IFilterBookOptions } from '../interfaces/filter-book-options.interface';
-import { booksMock } from '../utils/mocks/booksMock';
+import { allBooksMock, booksMock } from '../utils/mocks/booksMock';
 
 export const fetchBooks = (options?: IFilterBookOptions): Book[] => {
   let filteredBooks = booksMock;
@@ -19,3 +19,7 @@ export const fetchBooks = (options?: IFilterBookOptions): Book[] => {
 
   return filteredBooks;
 };
+
+export const fetchAllBooks = ():Book[] => {
+  return allBooksMock;
+}
