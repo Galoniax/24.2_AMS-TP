@@ -2,9 +2,14 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import ScrollToTopOnLocationChange from '../utils/ScrollToTop';
 import Layout from '../layout/Layout';
 import { ROUTES } from '../constants/constants';
-import Home from '../views/home/Home';
-import Login from '../views/login/Login';
-import Error404 from '../views/error/Error404';
+
+import {
+  Home,
+  Books,
+  Login,
+  Register,
+  Error404
+} from "../views/"
 
 const AppRoutes = () => {
   return (
@@ -15,6 +20,8 @@ const AppRoutes = () => {
           <Routes>
             <Route path={ROUTES.HOME} index element={<Home />} />
             <Route path={ROUTES.LOGIN} element={<Login />} />
+            <Route path={ROUTES.BOOKS} element={<Books />} />
+            <Route path={ROUTES.REGISTER} element={<Register />} />
             <Route path="*" element={<Error404 />} />
           </Routes>
         </main>
