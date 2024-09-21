@@ -8,6 +8,6 @@ export const appConfig = {
   version: '0.1.0',
   author: 'Gerónimo Mercante, Gianfranco Andreachi, Axel Berger',
   MAIL_ADDRESS: 'mercantegero@gmail.com',
-  CURRENCY_SYMBOL: "$",
-  CURRENCY_TITLE: "Pesos ARS"
+  CURRENCY_SYMBOL: '$',
+  CURRENCY_TITLE: 'Pesos ARS',
 };

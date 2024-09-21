@@ -3,13 +3,7 @@ import ScrollToTopOnLocationChange from '../utils/ScrollToTop';
 import Layout from '../layout/Layout';
 import { ROUTES } from '../constants/constants';
 
-import {
-  Home,
-  Books,
-  Login,
-  Register,
-  Error404
-} from "../views/"
+import { Home, Books, Login, Register, Error404 } from '../views/';
 
 const AppRoutes = () => {
   return (
