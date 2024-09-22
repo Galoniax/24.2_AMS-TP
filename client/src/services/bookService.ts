@@ -1,9 +1,9 @@
 import axiosInterceptor from '../interceptor/axios-interceptor';
-import { Book } from '../interfaces/book.interface';
+import { IBook } from '../interfaces/book.interface';
 import { IFilterBookOptions } from '../interfaces/filter-book-options.interface';
 
 // Obtener todos los libros
-export const fetchAllBooks = async (): Promise<Book[]> => {
+export const fetchAllBooks = async (): Promise<IBook[]> => {
   const response = await axiosInterceptor.get('/books');
   return response.data;
 };
@@ -11,7 +11,7 @@ export const fetchAllBooks = async (): Promise<Book[]> => {
 // Filtrar libros
 export const fetchBooks = async (
   options?: IFilterBookOptions,
-): Promise<Book[]> => {
+): Promise<IBook[]> => {
   const response = await axiosInterceptor.get('/books', {
     params: options,
   });
@@ -19,13 +19,13 @@ export const fetchBooks = async (
 };
 
 // Obtener libro por ID
-export const fetchBookById = async (id: number): Promise<Book> => {
+export const fetchBookById = async (id: number): Promise<IBook> => {
   const response = await axiosInterceptor.get(`/books/${id}`);
   return response.data;
 };
 
 // Crear un nuevo libro
-export const createBook = async (newBook: Book): Promise<Book> => {
+export const createBook = async (newBook: IBook): Promise<IBook> => {
   const response = await axiosInterceptor.post('/books', newBook);
   return response.data;
 };
@@ -33,8 +33,8 @@ export const createBook = async (newBook: Book): Promise<Book> => {
 // Editar un libro por ID
 export const updateBook = async (
   id: number,
-  updatedBook: Book,
-): Promise<Book> => {
+  updatedBook: IBook,
+): Promise<IBook> => {
   const response = await axiosInterceptor.put(`/books/${id}`, updatedBook);
   return response.data;
 };

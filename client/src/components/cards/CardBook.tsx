@@ -1,23 +1,23 @@
 import { BiCartAdd } from 'react-icons/bi';
 import { appConfig } from '../../config/ApplicationConfig';
-import { Book } from '../../interfaces/book.interface';
+import { IBook } from '../../interfaces/book.interface';
 import Button from '../button/Button';
 import { formatPrice } from '../../utils/formatPrice';
 import { useNavigate } from 'react-router-dom';
 
 interface CardBookProps {
-  book: Book;
+  book: IBook;
 }
 
 const CardBook: React.FC<CardBookProps> = ({ book }) => {
   const navigate = useNavigate();
 
-  const addToCart = (book: Book) => {
+  const addToCart = (book: IBook) => {
     console.log(book);
   };
 
   const handleImageClick = () => {
-    navigate(`/books/${book.id}`); // Navegar a la ruta dinámica
+    navigate(`/books/${book.id}`);
   };
 
   return (

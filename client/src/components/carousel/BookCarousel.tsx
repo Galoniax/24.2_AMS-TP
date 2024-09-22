@@ -2,15 +2,16 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
-import { Book } from '../../interfaces/book.interface';
+import { IBook } from '../../interfaces/book.interface';
 import { Navigation, Pagination } from 'swiper/modules';
 import CardBook from '../cards/CardBook';
 
 interface CarouselProps {
-  books: Book[];
+  books: IBook[];
+  slidesPerView?: number;
 }
 
-const Carousel: React.FC<CarouselProps> = ({ books }) => {
+const Carousel: React.FC<CarouselProps> = ({ books, slidesPerView }) => {
   return (
     <Swiper
       modules={[Navigation, Pagination]}
@@ -29,13 +30,13 @@ const Carousel: React.FC<CarouselProps> = ({ books }) => {
           spaceBetween: 15,
         },
         1024: {
-          slidesPerView: 6,
+          slidesPerView: slidesPerView ?? 6,
           spaceBetween: 20,
         },
       }}
     >
       {books.map((book) => (
-        <SwiperSlide key={book.id}>
+        <SwiperSlide key={book.id} className="flex items-start justify-center">
           <CardBook book={book} />
         </SwiperSlide>
       ))}
