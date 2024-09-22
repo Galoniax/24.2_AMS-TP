@@ -3,14 +3,21 @@ import { appConfig } from '../../config/ApplicationConfig';
 import { Book } from '../../interfaces/book.interface';
 import Button from '../button/Button';
 import { formatPrice } from '../../utils/formatPrice';
+import { useNavigate } from 'react-router-dom';
 
 interface CardBookProps {
   book: Book;
 }
 
 const CardBook: React.FC<CardBookProps> = ({ book }) => {
+  const navigate = useNavigate();
+
   const addToCart = (book: Book) => {
     console.log(book);
+  };
+
+  const handleImageClick = () => {
+    navigate(`/books/${book.id}`); // Navegar a la ruta dinámica
   };
 
   return (
@@ -18,7 +25,8 @@ const CardBook: React.FC<CardBookProps> = ({ book }) => {
       <img
         src={book.imageUrl}
         alt={book.title}
-        className="w-[100%] h-[320px] object-contain"
+        className="w-[100%] h-[320px] object-contain cursor-pointer"
+        onClick={handleImageClick}
       />
       <h3 className="text-sm text-center font-light">{book.title}</h3>
       <div className="w-full h-[1px] bg-gray-200 my-2"></div>

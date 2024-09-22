@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 
 import './navbar.scss';
 import logo from '../../assets/images/logo.png';
-import { ROUTES } from '../../constants/constants';
+import { NAVBAR_ROUTES } from '../../constants/navbar-routes';
 
 const Navbar = () => {
   return (
@@ -14,24 +14,15 @@ const Navbar = () => {
         </div>
         <div>
           <ul className="flex gap-4">
-            <Link
-              to={ROUTES.HOME}
-              className="text-white text-sm cursor-pointer"
-            >
-              Home
-            </Link>
-            <Link
-              to={ROUTES.LOGIN}
-              className="text-white text-sm cursor-pointer"
-            >
-              Iniciar Sesión
-            </Link>
-            <Link
-              to={ROUTES.REGISTER}
-              className="text-white text-sm cursor-pointer"
-            >
-              Registrarse
-            </Link>
+            {NAVBAR_ROUTES.map((route) => (
+              <Link
+                key={route.name}
+                to={route.path}
+                className="text-white text-sm cursor-pointer"
+              >
+                {route.name}
+              </Link>
+            ))}
           </ul>
         </div>
       </nav>

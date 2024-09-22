@@ -8,13 +8,17 @@ export const useBooks = (options?: IFilterBookOptions) => {
   const [allBooks, setAllBooks] = useState<Book[]>([]);
 
   useEffect(() => {
-    if (options) {
-      const data = fetchBooks(options);
-      setBooks(data);
-    } else {
-      const allData = fetchAllBooks();
-      setAllBooks(allData);
-    }
+    const fetchData = async () => {
+      if (options) {
+        const data = await fetchBooks(options);
+        setBooks(data);
+      } else {
+        const allData = await fetchAllBooks();
+        setAllBooks(allData);
+      }
+    };
+
+    fetchData();
   }, [options]);
 
   return { books, allBooks };
