@@ -7,6 +7,7 @@
 
 ## Levantar en local
 - `npm run dev`
+- `npm run json-server` (Para correr datos JSON)
 
 ## Consideraciones
 - Antes de hacer un cambio en cualquier rama, se recomienda bastante ejecutar el siguiente comando:
