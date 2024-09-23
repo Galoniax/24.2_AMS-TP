@@ -1,0 +1,99 @@
+.ventaja-container {
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.ventaja-container:hover {
+    background-color: #1d2f46;
+}
+
+.ventaja-container:hover h3,
+.ventaja-container:hover p {
+  color: white;
+}
+
+.book-container {
+  opacity: 1;
+  transition: opacity 0.7s ease-out;
+}
+
+.book-container.transitioning {
+  opacity: 0;
+}
+
+.book-container img {
+  transform: scale(1);
+  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+}
+
+
+
+
+
+.book-container:hover img {
+  transform: scale(1.05); /* Zoom suave al pasar el ratón */
+  transition: transform 0.5s ease-in-out;
+}
+
+.oferta:hover {
+  transform: scale(1.05); /* Zoom suave al pasar el ratón */
+  transition: transform 0.5s ease-in-out;
+}
+
+.buttonwhite:hover {
+  transform: scale(1.04); /* Zoom suave al pasar el ratón */
+  transition: transform 0.5s ease-in-out;
+}
+
+
+.accordeon {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 50px;
+  position: relative;
+}
+
+.accordeon-title {
+  background-color: white;
+  padding: 20px 20px;
+  padding-right: 95px;
+  border-radius: 7px 7px 0 0;
+  border-bottom: 1px solid #E9F1EF;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.accordeon-title #p {
+  color: rgb(34, 34, 34);
+  font-weight: bold;
+  margin-bottom: 0;
+  text-align: left;
+}
+
+.accordeon-answer {
+  max-width: 615px;
+  display: none;
+  background-color: white;
+  border-radius: 0 0 7px 7px;
+}
+
+.accordeon-answer #p {
+  text-align: left;
+  margin-bottom: 0;
+  padding: 10px;
+  text-indent: 20px;
+}
+
+.accordeon-answer.active {
+  max-height: 200px; /* Ajusta este valor según el contenido */
+}
+
+.accordeon-answer.hidden {
+  max-height: 0;
+}
+
+.accordeon-title {
+  cursor: pointer;
+}
+
+
+
