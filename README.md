@@ -9,3 +9,16 @@
 -Diagrama Casos de Uso: https://lucid.app/lucidchart/da800abd-b6f1-4e54-8ca6-75dc5f23ec44/edit?viewport_loc=-2121%2C-728%2C3940%2C2020%2C0_0&invitationId=inv_5881c80c-bc49-4c9d-8253-bf367e78426e
 
 -Propuesta, Benchmarking, Rentabilidad: https://docs.google.com/document/d/11OJjHtT1kay9YsFRl1XQr9xolZuOYpXrMQ6VXs-PeB8/edit?tab=t.0
+
+
+## Inicializar la app
+
+### Build
+- Primero buildeamos nuestra aplicacion web react `cd ./client && npm run build`. 
+- Esto nos generá el build dentro de templates en el directorio raíz, ya está configurado asi en el fichero `(client) vite.config.ts`
+
+### API
+- Luego levantamos nuestra "API" de json-server `cd ./client && npm run json-sever`
+
+### Flask
+- Por último, en el directorio raíz junto donde se encuentra `app.py` - pyhton app.py
