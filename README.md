@@ -10,6 +10,9 @@
 
 -Propuesta, Benchmarking, Rentabilidad: https://docs.google.com/document/d/11OJjHtT1kay9YsFRl1XQr9xolZuOYpXrMQ6VXs-PeB8/edit?tab=t.0
 
+- Segunda entrega: https://docs.google.com/document/d/1ki8N6lWBbh1MmP4nSTY6tGGOC7tNds2mp4HhmZFfIl8/edit?usp=sharing
+
+
 
 ## Inicializar la app
 
