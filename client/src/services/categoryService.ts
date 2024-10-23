@@ -1,9 +1,10 @@
 import axiosInterceptor from '../interceptor/axios-interceptor';
+import { ApiResponse } from '../interfaces/api-response.interface';
 import { ICategory } from '../interfaces/category.interface';
 
-export const fetchAllCategories = async (): Promise<ICategory[]> => {
-  const response = await axiosInterceptor.get('/categories');
-  return response.data;
+export const fetchAllCategories = async (): Promise<ApiResponse<ICategory[]>> => {
+  const response = await axiosInterceptor.get('');
+  return response.data.record.categories;
 };
 
 export const fetchCategoryById = async (id: number): Promise<ICategory> => {
