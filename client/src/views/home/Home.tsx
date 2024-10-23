@@ -17,10 +17,6 @@ import oferta from '../../assets/images/oferta.png';
 import oferta2 from '../../assets/images/oferta2.png';
 import oferta3 from '../../assets/images/oferta3.png';
 
-
-
-
-
 const books = [
   { title: 'Metro 2033', author: 'Dmitri Glujovski', img: foto1 },
   { title: '1984', author: 'George Orwell', img: foto2 },
@@ -32,35 +28,25 @@ const books = [
 ];
 
 const editorialImg = [
-  { img: editorial , title: 'Mondadori' },
-  { img: editorial2 , title: 'Particular Books' },
-  { img: editorial3 , title: 'Tierra de Mu' },
-  { img: editorial4 , title: 'Oz Editorial' },
-  { img: editorial5 , title: 'Nova Tinta' },
-  { img: editorial6 , title: 'Medina Publishing' },
-]
-  
-
-
-
-
-
+  { img: editorial, title: 'Mondadori' },
+  { img: editorial2, title: 'Particular Books' },
+  { img: editorial3, title: 'Tierra de Mu' },
+  { img: editorial4, title: 'Oz Editorial' },
+  { img: editorial5, title: 'Nova Tinta' },
+  { img: editorial6, title: 'Medina Publishing' },
+];
 
 const Home = () => {
   const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
 
   const [isTransitioning, setIsTransitioning] = useState(false);
-  
- 
-  
 
-  
   useEffect(() => {
     const intervalId = setInterval(() => {
       setIsTransitioning(true); // Inicia la transición
       setTimeout(() => {
         setCurrentGroupIndex((prevIndex) =>
-          prevIndex + 1 >= Math.ceil(books.length / 3) ? 0 : prevIndex + 1
+          prevIndex + 1 >= Math.ceil(books.length / 3) ? 0 : prevIndex + 1,
         );
         setIsTransitioning(false); // Termina la transición
       }, 700); // Tiempo que dura la transición antes de cambiar el contenido
@@ -77,28 +63,37 @@ const Home = () => {
   // Cantidad de puntos basada en el número de grupos de libros
   const totalGroups = Math.ceil(books.length / 3);
 
-
   return (
     <div className="w-[100%] min-h-screen">
       <section className="flex justify-center items-center w-[100%] px-[150px] pt-[100px] pb-[100px] bg-[#F9F8F6]">
         <div className="max-w-[50%] flex flex-col gap-[70px]">
           <div>
-            <h4 className="textNunito tracking-[2px] text-sm">¡Registrate ahora!</h4>
-            <h1 className="textNunitoMed text-[54px] "> Cambia la forma en que compras tus <span className="textNunitoItalic">libros</span></h1> 
+            <h4 className="textNunito tracking-[2px] text-sm">
+              ¡Registrate ahora!
+            </h4>
+            <h1 className="textNunitoMed text-[54px] ">
+              {' '}
+              Cambia la forma en que compras tus{' '}
+              <span className="textNunitoItalic">libros</span>
+            </h1>
           </div>
 
           <div>
-            <p className="textNunito max-w-[600px] indent-8">Descubre una nueva manera de adquirir tus lecturas favoritas en nuestra librería. Con nuestras promociones exclusivas, descuentos especiales y opciones de compra personalizadas, encontrarás siempre la mejor forma de disfrutar de los libros que amas, ahorrando y accediendo a lo último en literatura. ¡Transforma tu experiencia de compra hoy mismo!</p>
-          
-          
-            <button className="textNunitoMed  text-white bg-[#2e4c74] text-accent border border-accent px-8 py-2 rounded-[100px] w-[250px] mt-[50px]">Registrarme ahora</button>
+            <p className="textNunito max-w-[600px] indent-8">
+              Descubre una nueva manera de adquirir tus lecturas favoritas en
+              nuestra librería. Con nuestras promociones exclusivas, descuentos
+              especiales y opciones de compra personalizadas, encontrarás
+              siempre la mejor forma de disfrutar de los libros que amas,
+              ahorrando y accediendo a lo último en literatura. ¡Transforma tu
+              experiencia de compra hoy mismo!
+            </p>
+
+            <button className="textNunitoMed  text-white bg-[#2e4c74] text-accent border border-accent px-8 py-2 rounded-[100px] w-[250px] mt-[50px]">
+              Registrarme ahora
+            </button>
           </div>
-            
-            
-            
-          
         </div>
-         <div className="relative flex">
+        <div className="relative flex">
           {/* Grid de libros */}
           <div className="gap-4 grid grid-cols-3 justify-items-center text-center">
             {getCurrentBooks().map((book, index) => (
@@ -106,10 +101,12 @@ const Home = () => {
                 key={index}
                 className={`book-container  ease-in-out flex ${
                   index % 2 === 0 ? 'flex-col' : 'flex-col-reverse justify-end'
-                } gap-3 ${isTransitioning ? 'transitioning' : ''}` }
+                } gap-3 ${isTransitioning ? 'transitioning' : ''}`}
               >
                 <div>
-                  <h2 className="textNunito text-[17px] font-bold">{book.title}</h2>
+                  <h2 className="textNunito text-[17px] font-bold">
+                    {book.title}
+                  </h2>
                   <h2 className="textNunito text-[12px]">{book.author}</h2>
                 </div>
                 <img
@@ -137,71 +134,90 @@ const Home = () => {
             ))}
           </div>
         </div>
-
-
       </section>
 
       <div className="flex items-center w-[100%] h-[200px] border-t-[1px] border-b-[1px] mb-[100px] overflow-hidden">
         {editorialImg.map((image, index) => (
-          <div className='w-[15%] flex justify-center' >
-            <img className='h-[100px] object-cover'
+          <div className="w-[15%] flex justify-center">
+            <img
+              className="h-[100px] object-cover"
               key={index} // Add a unique key for each image
               src={image.img}
               alt={image.title}
             />
           </div>
-        ))} 
+        ))}
       </div>
 
       <section className=" w-[100%] p-[100px] min-h-[700px] flex  justify-evenly  gap-[150px]">
         <div className="w-[40%] flex flex-col max-w-[500px] gap-3">
-          <h4 className="textNunito tracking-[2px] text-sm text-sky-700">Sobre Nosotros</h4>
+          <h4 className="textNunito tracking-[2px] text-sm text-sky-700">
+            Sobre Nosotros
+          </h4>
           <h1 className="textNunitoMed text-[30px]">
             Una Librería Pensada para Ti
           </h1>
           <p className="textNunito indent-11 leading-8">
-            En Yenny, nos apasiona conectar a las personas con el mundo de la lectura. Ofrecemos una experiencia personalizada para que encuentres fácilmente tus libros favoritos y descubras nuevas historias. Con promociones exclusivas, una amplia variedad de géneros y la comodidad de comprar en línea, Yenny es más que una librería: es el lugar donde comienza tu próxima aventura literaria.
+            En Yenny, nos apasiona conectar a las personas con el mundo de la
+            lectura. Ofrecemos una experiencia personalizada para que encuentres
+            fácilmente tus libros favoritos y descubras nuevas historias. Con
+            promociones exclusivas, una amplia variedad de géneros y la
+            comodidad de comprar en línea, Yenny es más que una librería: es el
+            lugar donde comienza tu próxima aventura literaria.
           </p>
-          <p className='textNunito text-[16px] leading-8 mt-[20px]'>Adentrate en un mundo lleno de ofertas, promociones y descuentos. ¡Descubre todo lo que necesitas para mejorar tu experiencia de lectura!</p>
+          <p className="textNunito text-[16px] leading-8 mt-[20px]">
+            Adentrate en un mundo lleno de ofertas, promociones y descuentos.
+            ¡Descubre todo lo que necesitas para mejorar tu experiencia de
+            lectura!
+          </p>
           <div className="flex justify-center mt-4">
-            <button className="buttonwhite textNunitoMed text-sm border border-black border-accent px-8 py-2 rounded-[5px] w-[250px] justify-center">Ver más</button>
+            <button className="buttonwhite textNunitoMed text-sm border border-black border-accent px-8 py-2 rounded-[5px] w-[250px] justify-center">
+              Ver más
+            </button>
           </div>
         </div>
         <div className="w-[60%]">
           <h2 className="textNunitoMed text-[25px]">Ofertas</h2>
 
-          <div className='flex cols-2 gap-[50px] mt-[40px]'>   
-            <img src={oferta} className="oferta w-[230px] rounded-bl-[200px] rounded-br-[200px]" alt="Oferta" />
-            <img src={oferta2} className="oferta w-[230px] rounded-tl-[200px] rounded-tr-[200px]" alt="Oferta" />
-            <img src={oferta3} className="oferta w-[230px] rounded-bl-[200px] rounded-br-[200px]" alt="Oferta" />
+          <div className="flex cols-2 gap-[50px] mt-[40px]">
+            <img
+              src={oferta}
+              className="oferta w-[230px] rounded-bl-[200px] rounded-br-[200px]"
+              alt="Oferta"
+            />
+            <img
+              src={oferta2}
+              className="oferta w-[230px] rounded-tl-[200px] rounded-tr-[200px]"
+              alt="Oferta"
+            />
+            <img
+              src={oferta3}
+              className="oferta w-[230px] rounded-bl-[200px] rounded-br-[200px]"
+              alt="Oferta"
+            />
           </div>
-          
-          
-
-          
         </div>
       </section>
 
       <section className=" w-[100%] min-h-[500px]">
-        <div className=" border-t-[1px] flex  justify-between items-center px-[100px]" >
+        <div className=" border-t-[1px] flex  justify-between items-center px-[100px]">
           <div className="w-[50%]">
-            <h4 className="textNunito tracking-[2px] text-sm text-sky-700">Ventajas</h4>
+            <h4 className="textNunito tracking-[2px] text-sm text-sky-700">
+              Ventajas
+            </h4>
             <h1 className="textNunitoMed text-[40px]">
               Aprovecha al máximo tu experiencia en nuestra librería
             </h1>
           </div>
-        
 
-        <div className="w-[40%] h-[250px] flex items-end">
-          <p className="textNunito text-[16px] leading-7">
-            Yenny provee ciertas ventajas que te ayudaran a mejorar tu experiencia de lectura. Ventajas que logran diferenciarse de la competencia  <b>Estas son algunas de ellas:</b>
-          
-          </p>
+          <div className="w-[40%] h-[250px] flex items-end">
+            <p className="textNunito text-[16px] leading-7">
+              Yenny provee ciertas ventajas que te ayudaran a mejorar tu
+              experiencia de lectura. Ventajas que logran diferenciarse de la
+              competencia <b>Estas son algunas de ellas:</b>
+            </p>
+          </div>
         </div>
-
-        </div>
-
-       
 
         <div className="flex gap-[15px] justify-center items-center px-[100px] mt-[80px]">
           <div className="ventaja-container flex flex-col justify-center border border-[#c7c7c7]  h-[500px] w-[25%] p-10">
@@ -209,18 +225,18 @@ const Home = () => {
               Amplia variedad de libros
             </h3>
             <p className="textNunito text-gray-600 leading-8">
-              Encuentra todo tipo de libros, desde los últimos lanzamientos hasta los clásicos favoritos. Siempre tendrás algo nuevo que leer.
+              Encuentra todo tipo de libros, desde los últimos lanzamientos
+              hasta los clásicos favoritos. Siempre tendrás algo nuevo que leer.
             </p>
-
           </div>
           <div className="ventaja-container flex flex-col justify-center border border-[#c7c7c7]  h-[500px] w-[25%] p-10">
             <h3 className="textNunito text-[20px] font-semibold mb-4">
               Promociones exclusivas
             </h3>
             <p className="textNunito text-gray-600 leading-8">
-              Aprovecha descuentos y ofertas exclusivas en nuestros libros. ¡Ahorra mientras disfrutas de tus lecturas favoritas!
+              Aprovecha descuentos y ofertas exclusivas en nuestros libros.
+              ¡Ahorra mientras disfrutas de tus lecturas favoritas!
             </p>
-
           </div>
 
           <div className="ventaja-container flex flex-col justify-center border border-[#c7c7c7] rounded-tr-[200px]  h-[500px] w-[30%] p-10">
@@ -228,46 +244,29 @@ const Home = () => {
               Fácil gestión de pedidos
             </h3>
             <p className="textNunito text-gray-600 leading-8">
-              Controla el estado de tus pedidos y compras de forma rápida y sencilla. Todo lo que necesitas al alcance de un clic.
+              Controla el estado de tus pedidos y compras de forma rápida y
+              sencilla. Todo lo que necesitas al alcance de un clic.
             </p>
           </div>
         </div>
       </section>
 
-      <section className='border-t-[1px] mt-[100px] pt-[100px] w-[100%] '>
-      <div className=" flex px-[100px] min-h-[800px]" >
-        <div className="w-[45%]">
-          <h4 className="textNunito tracking-[2px] text-sm text-sky-700">Ventajas</h4>
-          <h1 className="textNunitoMed text-[40px] m-w-[600px]">
-            Aprovecha al máximo tu experiencia en nuestra librería
-          </h1>
-        </div>
-
-        <div className="w-[55%]">
-          <div className="w-[100%]">
-          
-
+      <section className="border-t-[1px] mt-[100px] pt-[100px] w-[100%] ">
+        <div className=" flex px-[100px] min-h-[800px]">
+          <div className="w-[45%]">
+            <h4 className="textNunito tracking-[2px] text-sm text-sky-700">
+              Ventajas
+            </h4>
+            <h1 className="textNunitoMed text-[40px] m-w-[600px]">
+              Aprovecha al máximo tu experiencia en nuestra librería
+            </h1>
           </div>
-          
+
+          <div className="w-[55%]">
+            <div className="w-[100%]"></div>
+          </div>
         </div>
-
-      
-      </div>
-
       </section>
-
-
-
-
-
-      
-
-
-
-
-
-      
-      
     </div>
   );
 };

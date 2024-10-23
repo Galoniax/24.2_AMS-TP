@@ -1,9 +1,11 @@
 .ventaja-container {
-    transition: background-color 0.3s ease, color 0.3s ease;
+  transition:
+    background-color 0.3s ease,
+    color 0.3s ease;
 }
 
 .ventaja-container:hover {
-    background-color: #1d2f46;
+  background-color: #1d2f46;
 }
 
 .ventaja-container:hover h3,
@@ -22,12 +24,10 @@
 
 .book-container img {
   transform: scale(1);
-  transition: transform 0.5s ease-in-out, opacity 0.5s ease-in-out;
+  transition:
+    transform 0.5s ease-in-out,
+    opacity 0.5s ease-in-out;
 }
-
-
-
-
 
 .book-container:hover img {
   transform: scale(1.05); /* Zoom suave al pasar el ratón */
@@ -44,7 +44,6 @@
   transition: transform 0.5s ease-in-out;
 }
 
-
 .accordeon {
   display: flex;
   flex-direction: column;
@@ -57,7 +56,7 @@
   padding: 20px 20px;
   padding-right: 95px;
   border-radius: 7px 7px 0 0;
-  border-bottom: 1px solid #E9F1EF;
+  border-bottom: 1px solid #e9f1ef;
   cursor: pointer;
   transition: all 0.3s ease;
 }
@@ -94,6 +93,3 @@
 .accordeon-title {
   cursor: pointer;
 }
-
-
-
