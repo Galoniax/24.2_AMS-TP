@@ -151,4 +151,18 @@
       "name": "Documentales"
     }
   ]
+  ,
+  "users": [
+    {
+      "id": "1",
+      "email": "admin@email.com",
+      "password": "123456"
+    },
+    {
+      "id": "2",
+      "email": "user@email.com",
+      "password": "123456"
+    }
+  ]
+
 }

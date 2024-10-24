@@ -30,16 +30,43 @@ const Login = () => {
     setPasswordError(validation.hasError ? validation.errorMessage : '');
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+  
     if (isFormValid) {
-      console.log('Email:', email);
-      console.log('Password:', password);
-      toast.success('Sesión iniciada', { autoClose: 2000 });
-      navigate(ROUTES.BOOKS);
+      // Crear el objeto de datos a enviar
+      const loginData = {
+        email: email,
+        password: password
+      };
+  
+      try {
+        // Hacer la petición POST al backend
+        const response = await fetch('http://localhost:5000/login', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(loginData)  // Enviar los datos del formulario
+        });
+  
+        if (!response.ok) {
+          throw new Error('Error en la solicitud');
+        }
+  
+        const data = await response.json();  // Obtener la respuesta del backend
+  
+        // Manejar la respuesta exitosa
+        console.log('Respuesta del backend:', data);
+        toast.success('Sesión iniciada', { autoClose: 2000 });
+        navigate(ROUTES.BOOKS);  // Redirigir a otra página
+      } catch (error) {
+        console.error('Error en el inicio de sesión:', error);
+        toast.error('Error al iniciar sesión');
+      }
     }
   };
-
+  
   return (
     <div
       className="w-[100%] flex flex-col justify-center items-center"

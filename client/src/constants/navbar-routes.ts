@@ -2,6 +2,8 @@ import { INavbarRoute } from '../interfaces/navbar.routes.interface';
 import { ROUTES } from './constants';
 
 export const NAVBAR_ROUTES: INavbarRoute[] = [
+
+  
   {
     name: 'Home',
     path: ROUTES.HOME,
@@ -22,6 +24,7 @@ export const NAVBAR_ROUTES: INavbarRoute[] = [
     name: 'Registrarse',
     path: ROUTES.REGISTER,
   },
+  
   // {
   //   name: 'Profile',
   //   path: ROUTES.PROFILE
