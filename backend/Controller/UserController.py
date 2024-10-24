@@ -42,3 +42,4 @@ def register():
   save_data(data)
   
   return jsonify({"message": "Usuario registrado exitosamente"}), 201
+
