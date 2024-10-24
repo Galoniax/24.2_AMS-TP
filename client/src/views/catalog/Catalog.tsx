@@ -11,9 +11,6 @@ const Catalog = () => {
 
   const handleClose = (arg: boolean) => {
     setIsModalOpen(arg);
-    setTimeout(() => {
-      window.location.reload();
-    }, 1000);
   };
 
   return (

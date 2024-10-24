@@ -6,8 +6,10 @@ import { isEmailValid, isPasswordValid } from '../../utils/Validators';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/constants';
+import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
+  const { authenticate } = useAuth();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState<string | undefined>('');
@@ -35,8 +37,9 @@ const Login = () => {
     if (isFormValid) {
       console.log('Email:', email);
       console.log('Password:', password);
-      toast.success('Sesión iniciada', { autoClose: 2000 });
-      navigate(ROUTES.BOOKS);
+      authenticate(email, password);
+      // toast.success('Sesión iniciada', { autoClose: 2000 });
+      // navigate(ROUTES.BOOKS);
     }
   };
 

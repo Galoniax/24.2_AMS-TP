@@ -1,0 +1,24 @@
+import axiosInterceptor from '../interceptor/axios-interceptor';
+import { IError } from '../interfaces/error.interface';
+
+export const login = async (email: string, password: string) => {
+  try {
+    const response = await axiosInterceptor.post(`/login`, { email, password });
+    return response.data;
+  } catch (err: any) {
+    const error = err as IError;
+    console.log(error.response.data.message)
+    throw error.response.data.message;
+  }
+}
+
+export const register = async (email: string, password: string, username: string, dni: string, birthDate: string) => {
+  try {
+    const response = await axiosInterceptor.post(`/register`, { email, password, username, dni, birthDate });
+    return response.data;
+  } catch (err: any) {
+    const error = err as IError;
+    console.log(error.response.data.message)
+    throw error.response.data.message;
+  }
+}

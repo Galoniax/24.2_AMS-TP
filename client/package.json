@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "clean": "del \"../templates/*\"",
+    "build": "tsc -b && npm run clean && vite build",
     "preview": "vite preview",
     "lint": "eslint \"src/**/*.{ts,tsx,js,jsx}\" --fix",
     "pretty": "prettier --write src/**/*.{ts,tsx,js,jsx,json,css,scss,md} && eslint --fix \"src/**/*.{ts,tsx,js,jsx}\"",
@@ -34,6 +35,7 @@
     "@typescript-eslint/parser": "^8.6.0",
     "@vitejs/plugin-react-swc": "^3.5.0",
     "autoprefixer": "^10.4.20",
+    "del-cli": "^6.0.0",
     "eslint": "^8.57.0",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.30.0",

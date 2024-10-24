@@ -9,8 +9,12 @@ import {
 } from 'react-icons/fa';
 import DatePicker from 'react-datepicker';
 import Button from '../../components/button/Button';
+import { useAuth } from '../../hooks/useAuth';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../../constants/constants';
 
 const Register = () => {
+  const { userRegister } = useAuth();
   const [email, setEmail] = useState('');
   const [username, setUsername] = useState('');
   const [dni, setDni] = useState('');
@@ -21,6 +25,8 @@ const Register = () => {
   const [emailError, setEmailError] = useState<string | undefined>('');
   const [passwordError, setPasswordError] = useState<string | undefined>('');
   const [confirmPasswordError, setConfirmPasswordError] = useState('');
+
+  const navigate = useNavigate();
 
   const isFormComplete =
     email &&
@@ -35,13 +41,13 @@ const Register = () => {
 
   const handleSubmit = () => {
     if (isFormComplete) {
-      console.log('Datos del formulario:', {
-        email,
-        username,
-        dni,
-        birthDate,
-        password,
-      });
+      try {
+        userRegister(email, password, username, dni, birthDate.toISOString());
+        clearForm();
+        setTimeout(() => {
+          navigate(ROUTES.LOGIN);
+        }, 3000)
+      } catch (err: any) { console.error(err) }
     }
   };
 
@@ -68,6 +74,18 @@ const Register = () => {
       value !== password ? 'Las contraseñas no coinciden.' : '',
     );
   };
+
+  const clearForm = ():void => {
+    setEmail('');
+    setUsername('');
+    setDni('');
+    setBirthDate(null);
+    setPassword('');
+    setConfirmPassword('');
+    setEmailError('');
+    setPasswordError('');
+    setConfirmPasswordError('');
+  }
 
   return (
     <div className="flex justify-center items-center h-screen w-full bg-slate-100">
