@@ -3,7 +3,6 @@ import Button from '../../components/button/Button';
 import './login.scss';
 import { useState } from 'react';
 import { isEmailValid, isPasswordValid } from '../../utils/Validators';
-import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/constants';
 import { useAuth } from '../../hooks/useAuth';
@@ -35,11 +34,10 @@ const Login = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (isFormValid) {
-      console.log('Email:', email);
-      console.log('Password:', password);
       authenticate(email, password);
-      // toast.success('Sesión iniciada', { autoClose: 2000 });
-      // navigate(ROUTES.BOOKS);
+      setTimeout(() => {
+        navigate(ROUTES.BOOKS);
+      }, 3000);
     }
   };
 

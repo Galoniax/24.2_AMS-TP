@@ -18,9 +18,8 @@ export const useAuth = () => {
         id: response.id,
         username: response.username,
         email: email,
-        role: response.role,
+        role: response.role.toUpperCase(),
         token: response.token,
-        birthDate: response.birthDate,
       }
 
       dispatch({

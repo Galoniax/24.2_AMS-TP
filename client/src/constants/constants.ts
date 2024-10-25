@@ -7,4 +7,5 @@ export const ROUTES = {
   BOOKS: '/books',
   BOOK: '/books/:id',
   CATALOG: '/catalog',
+  ERROR_403: '/error403',
 };

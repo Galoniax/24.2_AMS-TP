@@ -12,6 +12,8 @@ import {
   Catalog,
   BookDetail,
 } from '../views/';
+import ProtectedRoute from './protected.routes';
+import { RolesEnum } from '../constants/enum/RolesEnum';
 
 const AppRoutes = () => {
   return (
@@ -25,7 +27,11 @@ const AppRoutes = () => {
             <Route path={ROUTES.BOOKS} element={<Books />} />
             <Route path={ROUTES.BOOK} element={<BookDetail />} />
             <Route path={ROUTES.REGISTER} element={<Register />} />
-            <Route path={ROUTES.CATALOG} element={<Catalog />} />
+            <Route path={ROUTES.CATALOG} element={
+              <ProtectedRoute roles={[RolesEnum.EMPLOYEE, RolesEnum.ADMIN, RolesEnum.CLIENT]} element={<Catalog />} />}
+            />
+            {/* <Route path={ROUTES.CATALOG} element={<Catalog />} /> */}
+            <Route path={ROUTES.BOOK} element={<BookDetail />} />
             <Route path="*" element={<Error404 />} />
           </Routes>
         </main>

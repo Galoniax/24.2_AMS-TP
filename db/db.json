@@ -154,13 +154,17 @@
     "users": [
         {
             "id": 1,
+            "username": "admin",
             "email": "admin@admin.com",
-            "password": "admin123"
+            "password": "admin123",
+            "role": "ADMIN"
         },
         {
             "id": 2,
             "email": "admin2@admin.com",
-            "password": "admin123"
+            "username": "admin2",
+            "password": "admin123",
+            "role": "EMPLOYEE"
         },
         {
             "email": "mercantegero@gmail.com",
