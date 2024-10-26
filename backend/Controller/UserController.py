@@ -33,13 +33,21 @@ def login():
 
 @user_controller.route('/register', methods=['POST'])
 def register():
-  data = load_data()
-  users = data.get("users", [])
+    data = load_data()
+    users = data.get("users", [])
 
-  new_user = request.json
-  users.append(new_user)
-  data['users'] = users
-  save_data(data)
-  
-  return jsonify({"message": "Usuario registrado exitosamente"}), 201
+    new_user = request.json
+    new_username = new_user.get('username')
+    new_email = new_user.get('email')
 
+    for user in users:
+        if user['username'] == new_username:
+            return jsonify({"message": "Nombre de usuario ya registrado"}), 409
+        if user['email'] == new_email:
+            return jsonify({"message": "Correo electrónico ya registrado"}), 409
+
+    users.append(new_user)
+    data['users'] = users
+    save_data(data)
+    
+    return jsonify({"message": "Usuario registrado exitosamente"}), 201
