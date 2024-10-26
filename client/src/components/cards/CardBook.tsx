@@ -1,4 +1,4 @@
-import { BiCartAdd } from 'react-icons/bi';
+import { BiCartAdd, BiEdit } from 'react-icons/bi';
 import { appConfig } from '../../config/ApplicationConfig';
 import { IBook } from '../../interfaces/book.interface';
 import Button from '../button/Button';
@@ -6,12 +6,16 @@ import { formatPrice } from '../../utils/formatPrice';
 import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { fadeInUp } from '../../utils/animations';
+import { RolesEnum } from '../../constants/enum/RolesEnum';
 
 interface CardBookProps {
   book: IBook;
+  showButton?: boolean;
+  userRole?: RolesEnum;
+  onEditBook?: (book: IBook) => void;
 }
 
-const CardBook: React.FC<CardBookProps> = ({ book }) => {
+const CardBook: React.FC<CardBookProps> = ({ book, showButton = true, userRole = null, onEditBook }) => {
   const navigate = useNavigate();
 
   const addToCart = (book: IBook) => {
@@ -38,19 +42,34 @@ const CardBook: React.FC<CardBookProps> = ({ book }) => {
       <div className="w-full flex items-center justify-between">
         <p title={appConfig.CURRENCY_TITLE} className="font-bold">
           <span>{appConfig.CURRENCY_SYMBOL}</span>
-          &nbsp;{formatPrice(book.price)}
+          &nbsp;{formatPrice(book.price || 0)}
         </p>
-        <Button
-          text="Añadir"
-          type="button"
-          size="sm"
-          onClick={() => addToCart(book)}
-          key={book.id}
-          extraArgs={['text-[14px] flex items-center']}
-          icon={<BiCartAdd />}
-          iconPosition="right"
-          iconClassName="text-[20px]"
-        ></Button>
+        {showButton && (
+          <Button
+            text="Añadir"
+            type="button"
+            size="sm"
+            onClick={() => addToCart(book)}
+            key={book.id}
+            extraArgs={['text-[14px] flex items-center']}
+            icon={<BiCartAdd />}
+            iconPosition="right"
+            iconClassName="text-[20px]"
+          ></Button>
+        )}
+        {userRole === RolesEnum.ADMIN &&
+          <Button
+            text="Editar"
+            type="button"
+            size="sm"
+            onClick={() => onEditBook && onEditBook(book)}
+            key={book.id}
+            extraArgs={['text-[14px] flex items-center bg-red-600']}
+            icon={<BiEdit />}
+            iconPosition="left"
+            iconClassName="text-[20px]"
+          ></Button>
+        }
       </div>
     </motion.div>
   );

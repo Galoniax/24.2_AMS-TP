@@ -3,10 +3,11 @@ import { Nullable } from "../constants/constants";
 export interface IBook {
   id: Nullable<number>;
   title: string;
-  price: number;
+  price: Nullable<number>;
   isOffer: boolean;
-  stock: number;
+  stock: Nullable<number>;
   imageUrl: string;
   isNew: boolean;
   author: string;
+  categoryId: Nullable<number>;
 }

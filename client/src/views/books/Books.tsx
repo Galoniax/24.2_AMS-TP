@@ -50,7 +50,7 @@ const Books: React.FC = () => {
       <div className="w-[100%] flex flex-col">
         <h3 className="text-3xl">Libros Destacados</h3>
         <div className="w-[300px] h-[1px] bg-slate-400 my-2"></div>
-        <motion.div className="flex gap-10 flex-wrap justify-start mt-4">
+        <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
           {allBooks.map((book) => (
             <CardBook key={book.id} book={book} />
           ))}

@@ -1,7 +1,7 @@
 {
     "books": [
         {
-            "id": "1",
+            "id": 1,
             "title": "Harry Potter y la Piedra Filosofal",
             "price": 20200,
             "isOffer": true,
@@ -11,7 +11,7 @@
             "author": "George Orwell"
         },
         {
-            "id": "2",
+            "id": 2,
             "title": "Stranger Things",
             "price": 26100,
             "isOffer": false,
@@ -21,28 +21,19 @@
             "author": "George Orwell"
         },
         {
-            "id": "3",
-            "title": "El Mago de los libros",
+            "id": 3,
+            "title": "El Mago de los libros 2",
             "price": 12450,
             "isOffer": true,
             "stock": 8,
             "imageUrl": "https://3.bp.blogspot.com/-kcpOSsfsr2U/V2s1HbnMFYI/AAAAAAAAFHM/PhMzJFBsqCsygG9O5XJSUagOyvXr-NpjgCLcB/s1600/EL_MAGO_DE_LOS_LIBROS_B.jpg",
             "isNew": false,
-            "author": "Aldous Huxley"
+            "author": "Aldous Huxley",
+            "categoryId": "4"
         },
         {
-            "id": "4",
-            "title": "Solteros por naturaleza",
-            "price": 29500,
-            "isOffer": true,
-            "stock": 130,
-            "imageUrl": "https://th.bing.com/th/id/OIP.PPL-WIF5beKwL-9eI6r0TAAAAA?rs=1&pid=ImgDetMain",
-            "isNew": false,
-            "author": "Aldous Huxley"
-        },
-        {
-            "id": "5",
-            "title": "El arte de tener raz\u00c3\u00b3n",
+            "id": 5,
+            "title": "El arte de tener razon",
             "price": 9790,
             "isOffer": true,
             "stock": 0,
@@ -51,8 +42,8 @@
             "author": "ARTHUR SCHOPENHAUER"
         },
         {
-            "id": "6",
-            "title": "Este dolor no es m\u00c3\u00ado",
+            "id": 6,
+            "title": "Este dolor no es mio",
             "price": 16600,
             "isOffer": true,
             "stock": 14,
@@ -61,7 +52,7 @@
             "author": "Aldous Huxley"
         },
         {
-            "id": "7",
+            "id": 7,
             "title": "Harry Potter y la Piedra Filosofal",
             "price": 20200,
             "isOffer": true,
@@ -71,7 +62,7 @@
             "author": "George Orwell"
         },
         {
-            "id": "8",
+            "id": 8,
             "title": "Stranger Things",
             "price": 26100,
             "isOffer": false,
@@ -81,7 +72,7 @@
             "author": "George Orwell"
         },
         {
-            "id": "9",
+            "id": 9,
             "title": "El Mago de los libros",
             "price": 12450,
             "isOffer": true,
@@ -91,7 +82,7 @@
             "author": "Aldous Huxley"
         },
         {
-            "id": "10",
+            "id": 10,
             "title": "Solteros por naturaleza",
             "price": 29500,
             "isOffer": true,
@@ -101,7 +92,7 @@
             "author": "Aldous Huxley"
         },
         {
-            "id": "11",
+            "id": 11,
             "title": "El arte de tener raz\u00c3\u00b3n",
             "price": 9790,
             "isOffer": true,
@@ -111,8 +102,8 @@
             "author": "ARTHUR SCHOPENHAUER"
         },
         {
-            "id": "12",
-            "title": "Este dolor no es m\u00c3\u00ado",
+            "id": 12,
+            "title": "Este dolor no es mio",
             "price": 16600,
             "isOffer": true,
             "stock": 14,
@@ -123,31 +114,31 @@
     ],
     "categories": [
         {
-            "id": "1",
+            "id": 1,
             "name": "Accion"
         },
         {
-            "id": "2",
+            "id": 2,
             "name": "Terror"
         },
         {
-            "id": "3",
+            "id": 3,
             "name": "Suspenso"
         },
         {
-            "id": "4",
+            "id": 4,
             "name": "Policial"
         },
         {
-            "id": "5",
+            "id": 5,
             "name": "Ficcion"
         },
         {
-            "id": "6",
+            "id": 6,
             "name": "Cocina"
         },
         {
-            "id": "7",
+            "id": 7,
             "name": "Documentales"
         }
     ],
@@ -167,6 +158,7 @@
             "role": "EMPLOYEE"
         },
         {
+            "id": 3,
             "email": "mercantegero@gmail.com",
             "password": "123456",
             "username": "gerito",
@@ -174,6 +166,7 @@
             "birthDate": "2022-01-19T03:00:00.000Z"
         },
         {
+            "id": 4,
             "email": "mercantegero@gmail.com",
             "password": "123456",
             "username": "Gerito",

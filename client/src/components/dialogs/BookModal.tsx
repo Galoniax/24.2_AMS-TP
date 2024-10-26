@@ -1,185 +1,185 @@
-import { useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { IBook } from '../../interfaces/book.interface';
-import { createBook, updateBook } from '../../services/bookService';
-import { toast } from 'react-toastify';
+import { useCategory } from '../../hooks/useCategory';
+import { BsCash } from 'react-icons/bs';
+import { RiStockLine } from 'react-icons/ri';
+import { Nullable } from '../../constants/constants';
 
-interface IModalProps {
+interface BookModalProps {
   isOpen: boolean;
+  initialBook?: Nullable<IBook>;
   onClose: () => void;
-  bookToEdit?: IBook;
+  onDelete: (bookId: number) => void;
+  onSubmit: (book: IBook) => void;
 }
 
-const BookModal: React.FC<IModalProps> = ({ isOpen, onClose, bookToEdit }) => {
+const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onDelete, onSubmit }) => {
+  const { categories } = useCategory();
+
   const [book, setBook] = useState<IBook>({
-    id: 0,
-    title: '',
-    price: 0,
-    isOffer: false,
-    stock: 0,
-    imageUrl: '',
-    isNew: false,
-    author: '',
+    id: initialBook?.id || null,
+    title: initialBook?.title || '',
+    price: initialBook?.price || null,
+    isOffer: initialBook?.isOffer || false,
+    stock: initialBook?.stock || null,
+    imageUrl: initialBook?.imageUrl || '',
+    isNew: initialBook?.isNew || false,
+    author: initialBook?.author || '',
+    categoryId: initialBook?.categoryId || null,
   });
 
   useEffect(() => {
-    if (bookToEdit) {
-      setBook(bookToEdit);
-    } else {
-      setBook({
-        id: 0,
-        title: '',
-        price: 0,
-        isOffer: false,
-        stock: 0,
-        imageUrl: '',
-        isNew: false,
-        author: '',
-      });
+    if (initialBook) {
+      setBook(initialBook);
     }
-  }, [bookToEdit]);
+  }, [initialBook]);
 
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value, type } = e.target;
-    const checked =
-      type === 'checkbox' ? (e.target as HTMLInputElement).checked : undefined;
     setBook((prevBook) => ({
       ...prevBook,
-      [name]: type === 'checkbox' ? checked : value,
+      [name]: type === 'checkbox' && e.target instanceof HTMLInputElement ? e.target.checked : value,
     }));
   };
 
-  const handleSave = async () => {
-    try {
-      if (book.id) {
-        await updateBook(book.id, book);
-        toast.success('Libro actualizado con éxito');
-      } else {
-        await createBook(book);
-        toast.success('Libro creado con éxito');
-      }
-      onClose();
-    } catch (error) {
-      console.error('Error al guardar el libro:', error);
-    }
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    onSubmit(book);
+    resetForm();
+    onClose();
+  };
+
+  const resetForm = () => {
+    setBook({
+      id: null,
+      title: '',
+      price: null,
+      isOffer: false,
+      stock: null,
+      imageUrl: '',
+      isNew: false,
+      author: '',
+      categoryId: null,
+    });
   };
 
   if (!isOpen) return null;
 
   return (
-    <div
-      className={`fixed inset-0 flex items-center justify-center z-50 ${isOpen ? '' : 'hidden'}`}
-    >
-      <div
-        className="absolute inset-0 bg-black opacity-50"
-        onClick={onClose}
-      ></div>
-      <div className="bg-white rounded-lg shadow-lg p-6 z-10 w-96">
-        <h2 className="text-xl font-bold mb-4">
-          {book.id ? 'Editar Libro' : 'Crear Libro'}
-        </h2>
-        <form onSubmit={handleSave}>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="title">
-              Título
-            </label>
-            <input
-              type="text"
-              id="title"
-              name="title"
-              value={book.title}
-              onChange={handleChange}
-              className="w-full border border-gray-300 rounded p-2"
-              required
-            />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="price">
-              Precio
-            </label>
+    <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
+      <div className="bg-white rounded-lg shadow-lg w-4/5 md:w-3/5 h-auto overflow-auto p-6">
+        <h2 className="text-xl font-semibold mb-4">{initialBook ? 'Editar Libro' : 'Crear Libro'}</h2>
+        <form onSubmit={handleSubmit} className="space-y-4">
+          <input
+            type="text"
+            name="title"
+            placeholder="Título"
+            value={book.title}
+            onChange={handleChange}
+            className="w-full border rounded p-2"
+            required
+          />
+          <div className='relative'>
             <input
               type="number"
-              id="price"
               name="price"
-              value={book.price}
+              placeholder="Precio"
+              value={book.price || ''}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded p-2"
+              className="w-full border rounded p-2"
               required
             />
+            <BsCash className='absolute top-1/2 right-3 bg-slate-50 -translate-y-1/2 z-20' size={20} />
           </div>
-          <div className="mb-4">
-            <label className="inline-flex items-center">
-              <input
-                type="checkbox"
-                name="isOffer"
-                checked={book.isOffer}
-                onChange={handleChange}
-                className="form-checkbox"
-              />
-              <span className="ml-2">En oferta</span>
-            </label>
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="stock">
-              Stock
-            </label>
+          <div className="relative">
             <input
               type="number"
-              id="stock"
               name="stock"
-              value={book.stock}
+              placeholder="Stock"
+              value={book.stock || ''}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded p-2"
+              className="w-full border rounded p-2"
               required
             />
+            <RiStockLine className='absolute top-1/2 right-3 bg-slate-50 -translate-y-1/2 z-20' size={20} />
           </div>
-          <div className="mb-4">
-            <label
-              className="block text-sm font-medium mb-1"
-              htmlFor="imageUrl"
-            >
-              URL de Imagen
-            </label>
+          <input
+            type="text"
+            name="imageUrl"
+            placeholder="URL de la Imagen"
+            value={book.imageUrl}
+            onChange={handleChange}
+            className="w-full border rounded p-2"
+            required
+          />
+          <input
+            type="text"
+            name="author"
+            placeholder="Autor"
+            value={book.author}
+            onChange={handleChange}
+            className="w-full border rounded p-2"
+            required
+          />
+          <label className="flex items-center space-x-2">
             <input
-              type="text"
-              id="imageUrl"
-              name="imageUrl"
-              value={book.imageUrl}
+              type="checkbox"
+              name="isOffer"
+              checked={book.isOffer}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded p-2"
-              required
+              className="form-checkbox"
             />
-          </div>
-          <div className="mb-4">
-            <label className="block text-sm font-medium mb-1" htmlFor="isNew">
-              ¿Nuevo?
-            </label>
-            <select
+            <span>Oferta</span>
+          </label>
+          <label className="flex items-center space-x-2">
+            <input
+              type="checkbox"
               name="isNew"
-              id="isNew"
-              value={book.isNew ? 'true' : 'false'}
+              checked={book.isNew}
               onChange={handleChange}
-              className="w-full border border-gray-300 rounded p-2"
-            >
-              <option value="false">No</option>
-              <option value="true">Sí</option>
-            </select>
-          </div>
-          <div className="flex justify-between mt-6">
-            <button
-              type="button"
-              onClick={onClose}
-              className="bg-gray-300 text-black rounded px-4 py-2"
-            >
-              Cancelar
-            </button>
-            <button
-              type="submit"
-              className="bg-blue-600 text-white rounded px-4 py-2"
-            >
-              {book.id ? 'Actualizar' : 'Crear'}
-            </button>
+              className="form-checkbox"
+            />
+            <span>Nuevo</span>
+          </label>
+          <select
+            name="categoryId"
+            value={book.categoryId ?? ''}
+            onChange={handleChange}
+            className="w-full border rounded p-2"
+            required
+          >
+            <option value="" disabled>Seleccione una categoría</option>
+            {categories.map((category) => (
+              <option key={category.id} value={category.id}>
+                {category.name}
+              </option>
+            ))}
+          </select>
+          <div className="flex justify-between space-x-4">
+            {initialBook && initialBook.id != null && (
+              <button
+                type="button"
+                onClick={() => initialBook.id && onDelete(initialBook.id)}
+                className="px-4 py-2 bg-red-500 text-white rounded hover:bg-red-600"
+              >
+                Eliminar
+              </button>
+            )}
+            <div className='space-x-4'>
+              <button
+                type="button"
+                onClick={onClose}
+                className="px-4 py-2 bg-gray-400 text-white rounded hover:bg-gray-500"
+              >
+                Cancelar
+              </button>
+              <button
+                type="submit"
+                className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+              >
+                {initialBook ? 'Guardar Cambios' : 'Crear Libro'}
+              </button>
+            </div>
           </div>
         </form>
       </div>

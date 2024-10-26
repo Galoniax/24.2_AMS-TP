@@ -56,7 +56,7 @@ def update_book(id):
         book['imageUrl'] = request.json['imageUrl']
         book['isNew'] = request.json['isNew']
         book['author'] = request.json['author']
-        book['catergoryId'] = request.json['catergoryId']
+        book['categoryId'] = request.json['categoryId']
         save_data(data)
         return jsonify({"message": "Libro actualizado exitosamente"}), 200
     return jsonify({"message": "Libro no encontrado"}), 404

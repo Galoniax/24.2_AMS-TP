@@ -5,14 +5,17 @@ import { fetchAllBooks } from '../services/bookService';
 export const useBooks = () => {
   const [allBooks, setAllBooks] = useState<IBook[]>([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const allData = await fetchAllBooks();
-      setAllBooks(allData);
-    };
+  const fetchBooks = async () => {
+    const books = await fetchAllBooks();
+    setAllBooks(books);
+  };
 
-    fetchData();
+  useEffect(() => {
+    fetchBooks();
   }, []);
 
-  return { allBooks };
+  return {
+    allBooks,
+    refreshBooks: fetchBooks,
+  };
 };
