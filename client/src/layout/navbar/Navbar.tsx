@@ -3,9 +3,13 @@ import './navbar.scss';
 import logo from '../../assets/images/logo.png';
 import { NAVBAR_ROUTES } from '../../constants/navbar-routes';
 import { useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { RolesEnum } from '../../constants/enum/RolesEnum';
 
 const Navbar = () => {
-  const isAuthenticated = useSelector((state: any) => state.auth?.isAuthenticated);
+  const currentUser = useSelector((state: RootState) => state.auth);
+  const isAuthenticated = currentUser?.isAuthenticated;
+  const userRole = currentUser?.user_data?.role;
 
   return (
     <aside className="w-[100%]">
@@ -22,6 +26,10 @@ const Navbar = () => {
               }
 
               if (route.requiredAuth && !isAuthenticated) {
+                return null;
+              }
+
+              if (route.role && (!userRole || !route.role.includes(userRole as RolesEnum))) {
                 return null;
               }
 

@@ -1,3 +1,5 @@
+export type Nullable<T> = T | undefined | null
+
 export const ROUTES = {
   HOME: '/',
   LOGIN: '/login',
@@ -7,5 +9,6 @@ export const ROUTES = {
   BOOKS: '/books',
   BOOK: '/books/:id',
   CATALOG: '/catalog',
-  ERROR_403: '/error403',
+  ERROR_403: '/error-403',
+  ADMIN_DASHBOARD: '/admin-dashboard',
 };

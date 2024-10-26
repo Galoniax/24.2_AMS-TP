@@ -14,8 +14,9 @@ const Filter = () => {
           name="filter_by"
           id="filter_by"
           className="w-[340px] h-[40px] shadow p-2"
+          defaultValue="null"
         >
-          <option value="null" selected disabled>
+          <option value="null" disabled>
             Seleccione una editorial
           </option>
           <option value="popular">Ordenar por popularidad</option>
@@ -61,15 +62,15 @@ const Filter = () => {
       <div className="flex flex-col gap-2 w-full">
         <h5 className="text-sm uppercase font-bold">Etiquetas</h5>
         {categories.map((category) => (
-          <React.Fragment>
-            <div key={category.id} className="flex items-center gap-2">
+          <React.Fragment key={category.id}>
+            <div className="flex items-center gap-2">
               <input
                 type="checkbox"
                 name="filter_by"
-                id="filter_by"
+                id={`filter_by_${category.id}`} // Cambia el `id` también para que sea único
                 value={category.id}
               />
-              <label htmlFor="filter_by" className="text-md text-blue-700">
+              <label htmlFor={`filter_by_${category.id}`} className="text-md text-blue-700">
                 {category.name}
               </label>
             </div>

@@ -5,6 +5,7 @@ import authReducer from "./store/reducers/auth";
 import { useDispatch as useReduxDispatch } from 'react-redux';
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
+import loadingReducer from "./store/reducers/loading";
 
 const persistConfig = {
   key: "auth",
@@ -14,6 +15,7 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   auth: persistReducer(persistConfig, authReducer),
+  loading: loadingReducer,
 });
 
 const store = createStore(

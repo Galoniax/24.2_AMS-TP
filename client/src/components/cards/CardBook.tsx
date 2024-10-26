@@ -4,6 +4,8 @@ import { IBook } from '../../interfaces/book.interface';
 import Button from '../button/Button';
 import { formatPrice } from '../../utils/formatPrice';
 import { useNavigate } from 'react-router-dom';
+import { motion } from 'framer-motion';
+import { fadeInUp } from '../../utils/animations';
 
 interface CardBookProps {
   book: IBook;
@@ -21,7 +23,10 @@ const CardBook: React.FC<CardBookProps> = ({ book }) => {
   };
 
   return (
-    <div className="border p-4 rounded-[12px] shadow-lg w-[220px] h-[440px] flex flex-col items-center justify-between">
+    <motion.div className="border p-4 rounded-[12px] shadow-lg w-[220px] h-[440px] flex flex-col items-center justify-between"
+      initial="initial"
+      animate="animate"
+      variants={fadeInUp}>
       <img
         src={book.imageUrl}
         alt={book.title}
@@ -47,7 +52,7 @@ const CardBook: React.FC<CardBookProps> = ({ book }) => {
           iconClassName="text-[20px]"
         ></Button>
       </div>
-    </div>
+    </motion.div>
   );
 };
 

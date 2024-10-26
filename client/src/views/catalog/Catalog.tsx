@@ -34,8 +34,9 @@ const Catalog = () => {
               name="filter_by"
               id="filter_by"
               className="w-[350px] h-[40px] shadow"
+              defaultValue="null"
             >
-              <option value="null" selected disabled>
+              <option value="null" disabled>
                 Seleccione una categoría
               </option>
               <option value="">Ordenar por popularidad</option>

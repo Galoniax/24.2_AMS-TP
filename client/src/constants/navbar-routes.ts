@@ -1,5 +1,6 @@
 import { INavbarRoute } from '../interfaces/navbar.routes.interface';
 import { ROUTES } from './constants';
+import { RolesEnum } from './enum/RolesEnum';
 
 export const NAVBAR_ROUTES: INavbarRoute[] = [
   {
@@ -29,8 +30,16 @@ export const NAVBAR_ROUTES: INavbarRoute[] = [
     requiredAuth: false,
     hideOnAuth: true
   },
-  // {
-  //   name: 'Profile',
-  //   path: ROUTES.PROFILE
-  // }
+  {
+    name: 'Dashboard',
+    path: ROUTES.ADMIN_DASHBOARD,
+    requiredAuth: true,
+    role: [RolesEnum.ADMIN],
+  },
+  {
+    name: 'Profile',
+    path: ROUTES.PROFILE,
+    requiredAuth: true,
+    role: [RolesEnum.EMPLOYEE, RolesEnum.CLIENT],
+  }
 ];

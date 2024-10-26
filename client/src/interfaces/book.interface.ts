@@ -1,5 +1,7 @@
+import { Nullable } from "../constants/constants";
+
 export interface IBook {
-  id: number;
+  id: Nullable<number>;
   title: string;
   price: number;
   isOffer: boolean;
