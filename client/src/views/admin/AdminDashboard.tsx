@@ -44,7 +44,7 @@ const AdminDashboard = () => {
           </ul>
         </nav>
       </aside>
-      <div className="w-[80%] flex flex-col items-start justify-start py-8">
+      <div className="w-[90%] flex flex-col items-start justify-start py-8">
         {view === "books" && <AdminBooks />}
         {view === "users" && <AdminUsers />}
         {view === "categories" && <AdminCategories />}

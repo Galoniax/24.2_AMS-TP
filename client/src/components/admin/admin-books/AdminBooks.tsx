@@ -20,7 +20,7 @@ const AdminBooks = () => {
 
   const handleCreateOrUpdateBook = async (book: IBook) => {
     book.id ? await updateBook(book.id, book) : await createBook(book);
-    toast.success(book.id ? "Libro actualizado:" : "Nuevo libro creado:");
+    toast.success(book.id ? "Libro actualizado" : "Nuevo libro creado");
     setShowModal(false);
     setEditBook(null);
     refreshBooks();

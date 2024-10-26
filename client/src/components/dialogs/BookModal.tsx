@@ -150,13 +150,13 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
           >
             <option value="" disabled>Seleccione una categoría</option>
             {categories.map((category) => (
-              <option key={category.id} value={category.id}>
+              <option key={category.id} value={category.id || 0}>
                 {category.name}
               </option>
             ))}
           </select>
           <div className="flex justify-between space-x-4">
-            {initialBook && initialBook.id != null && (
+            {initialBook && initialBook.id != null ? (
               <button
                 type="button"
                 onClick={() => initialBook.id && onDelete(initialBook.id)}
@@ -164,6 +164,8 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
               >
                 Eliminar
               </button>
+            ) : (
+              <div></div>
             )}
             <div className='space-x-4'>
               <button

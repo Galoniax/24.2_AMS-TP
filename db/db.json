@@ -8,7 +8,8 @@
             "stock": 12,
             "imageUrl": "https://th.bing.com/th/id/R.805803cc0091320ff3392709185e8764?rik=ZVapd%2fHqWS%2bAjg&riu=http%3a%2f%2fcdn.coordiutil.com%2fimagen-harry_potter_y_la_piedra_filosofal_libro_1-1952728-0-0-0-75.jpg&ehk=tG4asswFSO%2bhBiDYqJazlnRx9ERwaqBOmwFZJ%2b85wv8%3d&risl=&pid=ImgRaw&r=0",
             "isNew": false,
-            "author": "George Orwell"
+            "author": "George Orwell",
+            "categoryId": 1
         },
         {
             "id": 2,
@@ -109,7 +110,8 @@
             "stock": 14,
             "imageUrl": "https://th.bing.com/th/id/OIP.cy5CKAL-ULYrScP6MFdQ1AHaKy?rs=1&pid=ImgDetMain",
             "isNew": true,
-            "author": "Aldous Huxley"
+            "author": "Aldous Huxley",
+            "categoryId": 4
         }
     ],
     "categories": [

@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import json
 import os
-from backend.security.auth import generate_token
+from backend.security.auth import generate_token, has_any_role
 from backend.config.config import DATABASE_FILE, API_PREFIX
 
 user_controller = Blueprint('user_controller', __name__, url_prefix=f"/{API_PREFIX}/")
@@ -44,10 +44,18 @@ def register():
         if user['username'] == new_username:
             return jsonify({"message": "Nombre de usuario ya registrado"}), 409
         if user['email'] == new_email:
-            return jsonify({"message": "Correo electrónico ya registrado"}), 409
+            return jsonify({"message": "Correo electrónico ya registrado"}), 40*9
 
     users.append(new_user)
     data['users'] = users
     save_data(data)
     
     return jsonify({"message": "Usuario registrado exitosamente"}), 201
+
+@user_controller.route('/users', methods=['GET'])
+@has_any_role(['ADMIN'])
+def get_users():
+  with open(DATABASE_FILE) as db_file:
+    data = json.load(db_file)
+    users = data.get('users', [])
+    return jsonify(users), 200

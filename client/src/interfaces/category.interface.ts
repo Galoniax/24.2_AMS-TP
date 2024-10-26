@@ -1,4 +1,7 @@
+import { Nullable } from "../constants/constants";
+
 export interface ICategory {
-  id: number;
+  id: Nullable<number>;
   name: string;
 }
+

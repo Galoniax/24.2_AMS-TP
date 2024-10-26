@@ -11,17 +11,21 @@ import { useBooks } from '../../hooks/useBooks';
 import Carousel from '../../components/carousel/BookCarousel';
 
 const BookDetail = () => {
+  const [loading, setLoading] = useState(false);
   const { id } = useParams<{ id: string }>();
   const [book, setBook] = useState<IBook | null>(null);
   const { allBooks } = useBooks();
 
   useEffect(() => {
     const fetchBook = async () => {
+      setLoading(true);
       try {
         const data = await fetchBookById(Number(id));
         setBook(data);
       } catch (error) {
         console.error('Error fetching book by ID:', error);
+      } finally {
+        setLoading(false);
       }
     };
     fetchBook();
@@ -33,7 +37,14 @@ const BookDetail = () => {
   };
 
   if (!book) {
-    return <div>Book not found</div>;
+    return (
+      <section className="w-[100%] h-[auto] pb-16 px-12 my-5">
+        <Breadcrumb />
+        <h1 className="text-3xl font-semibold border-b border-gray-300">
+          {loading ? 'Cargando...' : 'Libro no encontrado'}
+        </h1>
+      </section>
+      );
   }
 
   return (
@@ -84,17 +95,17 @@ const BookDetail = () => {
               <React.Fragment>
                 <div className="w-full flex items-center justify-between">
                   <p className="line-through text-2xl font-bold">
-                    {appConfig.CURRENCY_SYMBOL} {formatPrice(book.price)}
+                    {appConfig.CURRENCY_SYMBOL} {formatPrice(book.price || 0)}
                   </p>
                   <p className="text-2xl font-bold">
                     {appConfig.CURRENCY_SYMBOL}{' '}
-                    {formatPrice(book.price - book.price * 0.1)}
+                    {formatPrice(book.price ? book.price - book?.price * 0.1 : 0)}
                   </p>
                 </div>
               </React.Fragment>
             ) : (
               <p className="text-2xl font-bold">
-                {appConfig.CURRENCY_SYMBOL} {formatPrice(book.price)}
+                {appConfig.CURRENCY_SYMBOL} {formatPrice(book.price || 0)}
               </p>
             )}
           </div>
@@ -113,7 +124,7 @@ const BookDetail = () => {
             </div>
             <div className="w-[200px] flex flex-col gap-2">
               <p>Stock: {book.stock}</p>
-              {book.stock > 0 ? (
+              {book.stock && book.stock > 0 ? (
                 <p className="text-green-500">Disponible</p>
               ) : (
                 <p className="text-red-500">No disponible</p>
@@ -128,12 +139,12 @@ const BookDetail = () => {
                 disabled={book.stock === 0}
                 className="w-full mt-2 border p-1 text-sm"
               >
-                {book.stock > 0 && (
+                {book.stock && book.stock > 0 && (
                   <option selected disabled>
                     Selecciona una cantidad
                   </option>
                 )}
-                {book.stock > 0 ? (
+                {book.stock && book.stock > 0 ? (
                   getStockOptions(book.stock).map((option) => (
                     <option key={option} value={option}>
                       {option}

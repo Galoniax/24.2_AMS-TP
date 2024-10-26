@@ -5,13 +5,17 @@ import { fetchAllCategories } from '../services/categoryService';
 export const useCategory = () => {
   const [categories, setCategories] = useState<ICategory[]>([]);
 
+  const fetchCategories = async () => {
+    const categories = await fetchAllCategories();
+    setCategories(categories);
+  }
+
   useEffect(() => {
-    const fetchData = async () => {
-      const data = await fetchAllCategories();
-      setCategories(data);
-    };
-    fetchData();
+    fetchCategories();
   }, []);
 
-  return { categories };
+  return { 
+    categories,
+    refrehCategories: fetchCategories
+  };
 };
