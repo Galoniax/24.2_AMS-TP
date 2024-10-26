@@ -18,15 +18,22 @@ def get_books():
 @token_required
 @has_any_role(['ADMIN'])
 def create_book():
-  with open(DATABASE_FILE) as db_file:
-    data = json.load(db_file)
-    books = data.get('books', [])
-    new_book = request.json
+    with open(DATABASE_FILE) as db_file:
+        data = json.load(db_file)
+        books = data.get('books', [])
+    
+    # Generar el id como el primer elemento del nuevo libro
+    new_book_data = request.json
     id = int(len(books) + 1)
-    new_book['id'] = id
+    new_book = {"id": id}  # Crear diccionario con id al inicio
+    
+    # Añadir el resto de los datos a `new_book`
+    new_book.update(new_book_data)
+    
     books.append(new_book)
     data['books'] = books
     save_data(data)
+    
     return jsonify({"message": "Libro creado exitosamente"}), 201
 
 @book_controller.route('/books/<int:id>', methods=['GET'])
@@ -75,3 +82,28 @@ def delete_book(id):
         save_data(data)
         return jsonify({"message": "Libro eliminado exitosamente"}), 200
     return jsonify({"message": "Libro no encontrado"}), 404
+  
+  
+@book_controller.route('/catalog/<int:id_category>', methods=['GET'])
+@token_required
+def get_books_category(id_category):
+    with open(DATABASE_FILE) as db_file:
+        data = json.load(db_file)
+        categories = data.get('categories', [])
+        books = data.get('books', [])
+        
+    
+    # Verificar si existe la categoría con el id dado
+    category_exists = any(category['id'] == id_category for category in categories)
+    
+    if not category_exists:
+        return jsonify({"message": "Categoría no encontrada"}), 404
+
+    # Filtrar los libros que coinciden con el categoryId
+    books_category = [book for book in books if book.get('categoryId') == id_category]
+    
+    # Verificar si hay libros en esa categoría
+    if books_category:
+        return jsonify(books_category), 200
+    else:
+        return jsonify({"message": "No hay libros en esta categoría"}), 404
