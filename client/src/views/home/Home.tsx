@@ -1,5 +1,5 @@
 import './home.scss';
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 
 import foto1 from '../../assets/images/portadaMetro.png';
 import foto2 from '../../assets/images/portada1984.png';
@@ -16,6 +16,9 @@ import editorial6 from '../../assets/images/editorial6.png';
 import oferta from '../../assets/images/oferta.png';
 import oferta2 from '../../assets/images/oferta2.png';
 import oferta3 from '../../assets/images/oferta3.png';
+import { useSpring, motion } from 'framer-motion';
+import { useWindowSize } from '../../hooks/useWindowSize';
+import { useInView } from 'react-intersection-observer';
 
 const books = [
   { title: 'Metro 2033', author: 'Dmitri Glujovski', img: foto1 },
@@ -38,29 +41,41 @@ const editorialImg = [
 
 const Home = () => {
   const [currentGroupIndex, setCurrentGroupIndex] = useState(0);
-
   const [isTransitioning, setIsTransitioning] = useState(false);
+  const [cardRef, inView] = useInView({ threshold: 0.5 });
+  const windowSize = useWindowSize();
+  const scaleProgress = useRef(useSpring(1)).current;
+  const opacityProgress = useRef(useSpring(1)).current;
 
   useEffect(() => {
     const intervalId = setInterval(() => {
-      setIsTransitioning(true); // Inicia la transición
+      setIsTransitioning(true);
       setTimeout(() => {
         setCurrentGroupIndex((prevIndex) =>
           prevIndex + 1 >= Math.ceil(books.length / 3) ? 0 : prevIndex + 1,
         );
-        setIsTransitioning(false); // Termina la transición
-      }, 700); // Tiempo que dura la transición antes de cambiar el contenido
-    }, 6000); // Cambiará cada 6 segundos
+        setIsTransitioning(false);
+      }, 700);
+    }, 6000);
 
-    return () => clearInterval(intervalId); // Limpiar el intervalo al desmontar el componente
+    return () => clearInterval(intervalId);
   }, []);
+
+  useEffect(() => {
+    if(windowSize.isMobile) {
+      scaleProgress.set(1);
+      opacityProgress.set(1);
+    } else {
+      scaleProgress.set(inView ? 1 : 0.7);
+      opacityProgress.set(inView ? 1 : 0.5);
+    }
+  }, [inView]);
 
   const getCurrentBooks = () => {
     const startIndex = currentGroupIndex * 3;
     return books.slice(startIndex, startIndex + 3);
   };
 
-  // Cantidad de puntos basada en el número de grupos de libros
   const totalGroups = Math.ceil(books.length / 3);
 
   return (
@@ -136,12 +151,12 @@ const Home = () => {
         </div>
       </section>
 
-      <div className="flex items-center w-[100%] h-[200px] border-t-[1px] border-b-[1px] mb-[100px] overflow-hidden">
+      <div className="flex items-center justify-center w-[100%] h-[200px] border-t-[1px] border-b-[1px] mb-[100px] overflow-hidden">
         {editorialImg.map((image, index) => (
           <div className="w-[15%] flex justify-center">
             <img
               className="h-[100px] object-cover"
-              key={index} // Add a unique key for each image
+              key={index}
               src={image.img}
               alt={image.title}
             />
@@ -149,7 +164,13 @@ const Home = () => {
         ))}
       </div>
 
-      <section className=" w-[100%] p-[100px] min-h-[700px] flex  justify-evenly  gap-[150px]">
+      <motion.section className=" w-[100%] p-[100px] min-h-[700px] flex  justify-evenly  gap-[150px]"
+        ref={cardRef}
+        style={{
+          scale: scaleProgress,
+          opacity: opacityProgress,
+        }}
+      >
         <div className="w-[40%] flex flex-col max-w-[500px] gap-3">
           <h4 className="textNunito tracking-[2px] text-sm text-sky-700">
             Sobre Nosotros
@@ -197,7 +218,7 @@ const Home = () => {
             />
           </div>
         </div>
-      </section>
+      </motion.section>
 
       <section className=" w-[100%] min-h-[500px]">
         <div className=" border-t-[1px] flex  justify-between items-center px-[100px]">

@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './navbar.scss';
 import logo from '../../assets/images/logo.png';
 import { NAVBAR_ROUTES } from '../../constants/navbar-routes';
@@ -8,9 +8,11 @@ import { RolesEnum } from '../../constants/enum/RolesEnum';
 import { FaBell, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useEffect, useRef, useState } from 'react';
 import { logout } from '../../store/actions/logout';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const location = useLocation();
   const currentUser = useSelector((state: RootState) => state.auth);
   const isAuthenticated = currentUser?.isAuthenticated;
   const userRole = currentUser?.user_data?.role;
@@ -51,8 +53,8 @@ const Navbar = () => {
         <div>
           <img src={logo} alt="" className="w-[50px]" />
         </div>
-        <div className='flex items-center gap-4'>
-          <ul className="flex gap-4">
+        <div className='flex items-center gap-10'>
+          <ul className="flex gap-10">
               {NAVBAR_ROUTES.map((route) => {
                 if (route.hideOnAuth && isAuthenticated) {
                   return null;
@@ -65,60 +67,90 @@ const Navbar = () => {
                 if (route.role && (!userRole || !route.role.includes(userRole as RolesEnum))) {
                   return null;
                 }
+                const isActive = location.pathname === route.path;
 
                 return (
-                  <Link
+                  <motion.li
                     key={route.name}
-                    to={route.path}
-                    className="text-white text-sm cursor-pointer"
+                    className="text-sm cursor-pointer"
+                    whileHover={{ scale: 1.1 }}
+                    transition={{
+                      type: "spring",
+                      stiffness: 500,
+                      damping: 20,
+                    }}
                   >
-                    {route.name}
-                  </Link>
+                    <Link
+                      key={route.name}
+                      to={route.path}
+                      className={`text-white text-base cursor-pointer ${isActive ? "font-bold underline" : ""}`}
+                    >
+                      {route.name}
+                    </Link>
+                  </motion.li>
                 );
               })}
           </ul>
-          {isAuthenticated && (
-            <div className="relative">
-              <button
-                ref={buttonRef}
-                onClick={() => toggleMenu()}
-                className="text-white text-lg focus:outline-none border-white border-2 rounded-full p-2"
-              >
-                <FaUser />
-              </button>
-              {showMenu && (
-                <div
-                  ref={menuRef}
-                  className="absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-2"
+          <div className="relative">
+            {isAuthenticated && (
+              <>
+                <motion.button
+                  whileHover={{ scale: 1.2 }}
+                  transition={{
+                    type: "spring",
+                    stiffness: 500,
+                    damping: 20,
+                  }}
+                  onClick={() => toggleMenu()}
+                  className="text-white text-lg focus:outline-none border-white border-2 rounded-full p-2"
                 >
-                  <Link
-                    to="/profile"
-                    className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
-                  >
-                    <FaUser className="mr-2" />
-                    Mi perfil
-                  </Link>
-                  <Link
-                    to="/notifications"
-                    className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
-                  >
-                    <FaBell className="mr-2" />
-                    Notificaciones
-                  </Link>
-                  <button
-                    onClick={() => {
-                      toggleMenu();
-                      handleLogout();
-                    }}
-                    className="w-full flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 text-left"
-                  >
-                    <FaSignOutAlt className="mr-2" />
-                    Cerrar sesión
-                  </button>
-                </div>
-              )}
-            </div>
-          )}
+                  <FaUser />
+                </motion.button>
+                <AnimatePresence>
+                  {showMenu && (
+                    <motion.div
+                      initial={{ height: 0, opacity: 0 }}
+                      animate={{ height: "auto", opacity: 1 }}
+                      exit={{ height: 0, opacity: 0 }}
+                      transition={{
+                        duration: 0.5,
+                        type: "spring",
+                        stiffness: 500,
+                        damping: 30,
+                        opacity: { duration: 0.2 }
+                      }}
+                      className="absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-2 overflow-hidden"
+                    >
+                      <Link
+                        to="/profile"
+                        className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
+                      >
+                        <FaUser className="mr-2" />
+                        Mi perfil
+                      </Link>
+                      <Link
+                        to="/notifications"
+                        className="flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100"
+                      >
+                        <FaBell className="mr-2" />
+                        Notificaciones
+                      </Link>
+                      <button
+                        onClick={() => {
+                          toggleMenu();
+                          handleLogout();
+                        }}
+                        className="w-full flex items-center px-4 py-2 text-gray-800 hover:bg-gray-100 text-left"
+                      >
+                        <FaSignOutAlt className="mr-2" />
+                        Cerrar sesión
+                      </button>
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </>
+            )}
+          </div>
         </div>
       </nav>
     </aside>
