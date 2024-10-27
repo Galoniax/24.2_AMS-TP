@@ -6,16 +6,26 @@ import { useDispatch as useReduxDispatch } from 'react-redux';
 import { persistStore, persistReducer } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import loadingReducer from "./store/reducers/loading";
+import sidebarReducer from "./store/reducers/sidebar";
+import cartReducer from "./store/reducers/cart";
 
-const persistConfig = {
+const authPersistConfig = {
   key: "auth",
   storage,
   whitelist: ["user_data", "isAuthenticated"],
 };
 
+const cartPersistConfig = {
+  key: "cart",
+  storage,
+  whitelist: ["cartItems", "totalPrice"],
+};
+
 const rootReducer = combineReducers({
-  auth: persistReducer(persistConfig, authReducer),
+  auth: persistReducer(authPersistConfig, authReducer),
   loading: loadingReducer,
+  sidebar: sidebarReducer,
+  cart: persistReducer(cartPersistConfig, cartReducer),
 });
 
 const store = createStore(

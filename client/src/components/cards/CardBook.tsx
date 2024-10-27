@@ -7,6 +7,8 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { fadeInUp } from '../../utils/animations';
 import { RolesEnum } from '../../constants/enum/RolesEnum';
+import { useDispatch } from 'react-redux';
+import { addToCart } from '../../store/actions/cart';
 
 interface CardBookProps {
   book: IBook;
@@ -17,9 +19,10 @@ interface CardBookProps {
 
 const CardBook: React.FC<CardBookProps> = ({ book, showButton = true, userRole = null, onEditBook }) => {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
-  const addToCart = (book: IBook) => {
-    console.log(book);
+  const addToCartHandler = (book: IBook) => {
+    dispatch(addToCart(book));
   };
 
   const handleImageClick = () => {
@@ -49,7 +52,7 @@ const CardBook: React.FC<CardBookProps> = ({ book, showButton = true, userRole =
             text="Añadir"
             type="button"
             size="sm"
-            onClick={() => addToCart(book)}
+            onClick={() => addToCartHandler(book)}
             key={book.id}
             extraArgs={['text-[14px] flex items-center']}
             icon={<BiCartAdd />}

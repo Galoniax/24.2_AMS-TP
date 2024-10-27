@@ -5,10 +5,12 @@ import { NAVBAR_ROUTES } from '../../constants/navbar-routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { RolesEnum } from '../../constants/enum/RolesEnum';
-import { FaBell, FaSignOutAlt, FaUser } from 'react-icons/fa';
+import {  FaBell, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useEffect, useRef, useState } from 'react';
 import { logout } from '../../store/actions/logout';
 import { AnimatePresence, motion } from 'framer-motion';
+import { toggleSidebar } from '../../store/actions/sidebar';
+import { FaCartFlatbed } from 'react-icons/fa6';
 
 const Navbar = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -19,6 +21,7 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
+  const cartItemCount = useSelector((state: RootState) => state.cart.cartItems.length);
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -91,6 +94,18 @@ const Navbar = () => {
                 );
               })}
           </ul>
+        </div>
+        <div className='flex items-center gap-4'>
+        <div className="relative">
+          <button onClick={() => dispatch(toggleSidebar())} className="p-2">
+            <FaCartFlatbed className="text-2xl text-white" />
+          </button>
+          {cartItemCount > 0 && (
+            <span className="absolute top-[-5px] right-[-5px] bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+              {cartItemCount}
+            </span>
+          )}
+          </div>
           <div className="relative">
             {isAuthenticated && (
               <>
