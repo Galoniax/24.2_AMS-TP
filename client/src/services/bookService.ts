@@ -6,6 +6,12 @@ export const fetchAllBooks = async (): Promise<IBook[]> => {
   return response.data;
 };
 
+export const fetchBooksByCategoryId = async(id?: number): Promise<IBook[]> => {
+  if (!id) return [];
+  const response = await axiosInterceptor.get(`/books/catalog/${id}`);
+  return response.data;
+}
+
 export const fetchBookById = async (id: number): Promise<IBook> => {
   const response = await axiosInterceptor.get(`/books/${id}`);
   return response.data;

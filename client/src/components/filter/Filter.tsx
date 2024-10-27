@@ -1,10 +1,23 @@
 import { ImPriceTag } from 'react-icons/im';
 import { appConfig } from '../../config/ApplicationConfig';
 import { useCategory } from '../../hooks/useCategory';
-import React from 'react';
+import React, { useState } from 'react';
+import { Nullable } from '../../constants/constants';
 
-const Filter = () => {
+const Filter = ({ onSelectCategory }: any) => {
   const { categories } = useCategory();
+
+  const [selectedCategory, setSelectedCategory] = useState<Nullable<number>>(null);
+
+  const handleCategoryChange = (categoryId: Nullable<number>) => {
+    if (selectedCategory === categoryId) {
+      setSelectedCategory(null);
+      onSelectCategory(null);
+    } else {
+      setSelectedCategory(categoryId);
+      onSelectCategory(categoryId);
+    }
+  };
 
   return (
     <div className="flex flex-col md:sticky top-0 justify-between items-start sm:w-full md:w-[25%] sm:flex-col md:flex-col gap-[30px] pt-4 bg-white">
@@ -67,8 +80,10 @@ const Filter = () => {
               <input
                 type="checkbox"
                 name="filter_by"
-                id={`filter_by_${category.id}`} // Cambia el `id` también para que sea único
-                value={category.id}
+                id={`filter_by_${category.id}`}
+                checked={selectedCategory === category.id}
+                onChange={() => handleCategoryChange(category.id)}
+                value={category.id || ''}
               />
               <label htmlFor={`filter_by_${category.id}`} className="text-md text-blue-700">
                 {category.name}

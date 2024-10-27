@@ -15,11 +15,12 @@
             "id": 2,
             "title": "Stranger Things",
             "price": 26100,
-            "isOffer": false,
+            "isOffer": true,
             "stock": 5,
             "imageUrl": "https://th.bing.com/th/id/OIP.mIUHldoFp_MwaRsSP26GLQHaKi?rs=1&pid=ImgDetMain",
             "isNew": false,
-            "author": "George Orwell"
+            "author": "George Orwell",
+            "categoryId": 1
         },
         {
             "id": 3,
@@ -37,10 +38,11 @@
             "title": "El arte de tener razon",
             "price": 9790,
             "isOffer": true,
-            "stock": 0,
+            "stock": "5",
             "imageUrl": "https://th.bing.com/th/id/OIP.gOvDYsrVirOXpaHGgApuDAHaLT?rs=1&pid=ImgDetMain",
             "isNew": false,
-            "author": "ARTHUR SCHOPENHAUER"
+            "author": "ARTHUR SCHOPENHAUER",
+            "categoryId": 7
         },
         {
             "id": 6,
@@ -49,8 +51,9 @@
             "isOffer": true,
             "stock": 14,
             "imageUrl": "https://th.bing.com/th/id/OIP.cy5CKAL-ULYrScP6MFdQ1AHaKy?rs=1&pid=ImgDetMain",
-            "isNew": true,
-            "author": "Aldous Huxley"
+            "isNew": false,
+            "author": "Aldous Huxley",
+            "categoryId": 3
         },
         {
             "id": 7,
@@ -60,7 +63,8 @@
             "stock": 12,
             "imageUrl": "https://th.bing.com/th/id/R.805803cc0091320ff3392709185e8764?rik=ZVapd%2fHqWS%2bAjg&riu=http%3a%2f%2fcdn.coordiutil.com%2fimagen-harry_potter_y_la_piedra_filosofal_libro_1-1952728-0-0-0-75.jpg&ehk=tG4asswFSO%2bhBiDYqJazlnRx9ERwaqBOmwFZJ%2b85wv8%3d&risl=&pid=ImgRaw&r=0",
             "isNew": false,
-            "author": "George Orwell"
+            "author": "George Orwell",
+            "categoryId": 5
         },
         {
             "id": 8,
@@ -70,7 +74,8 @@
             "stock": 5,
             "imageUrl": "https://th.bing.com/th/id/OIP.mIUHldoFp_MwaRsSP26GLQHaKi?rs=1&pid=ImgDetMain",
             "isNew": false,
-            "author": "George Orwell"
+            "author": "George Orwell",
+            "categoryId": 7
         },
         {
             "id": 9,
@@ -80,7 +85,8 @@
             "stock": 8,
             "imageUrl": "https://3.bp.blogspot.com/-kcpOSsfsr2U/V2s1HbnMFYI/AAAAAAAAFHM/PhMzJFBsqCsygG9O5XJSUagOyvXr-NpjgCLcB/s1600/EL_MAGO_DE_LOS_LIBROS_B.jpg",
             "isNew": false,
-            "author": "Aldous Huxley"
+            "author": "Aldous Huxley",
+            "categoryId": 3
         },
         {
             "id": 10,
@@ -97,10 +103,11 @@
             "title": "El arte de tener raz\u00c3\u00b3n",
             "price": 9790,
             "isOffer": true,
-            "stock": 0,
+            "stock": "0",
             "imageUrl": "https://th.bing.com/th/id/OIP.gOvDYsrVirOXpaHGgApuDAHaLT?rs=1&pid=ImgDetMain",
             "isNew": false,
-            "author": "ARTHUR SCHOPENHAUER"
+            "author": "ARTHUR SCHOPENHAUER",
+            "categoryId": 8
         },
         {
             "id": 12,
@@ -142,6 +149,10 @@
         {
             "id": 7,
             "name": "Documentales"
+        },
+        {
+            "id": 8,
+            "name": "Romance"
         }
     ],
     "users": [

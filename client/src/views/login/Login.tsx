@@ -3,8 +3,6 @@ import Button from '../../components/button/Button';
 import './login.scss';
 import { useState } from 'react';
 import { isEmailValid, isPasswordValid } from '../../utils/Validators';
-import { useNavigate } from 'react-router-dom';
-import { ROUTES } from '../../constants/constants';
 import { useAuth } from '../../hooks/useAuth';
 
 const Login = () => {
@@ -13,7 +11,6 @@ const Login = () => {
   const [password, setPassword] = useState('');
   const [emailError, setEmailError] = useState<string | undefined>('');
   const [passwordError, setPasswordError] = useState<string | undefined>('');
-  const navigate = useNavigate();
 
   const isFormValid = email && password && !emailError && !passwordError;
 
@@ -35,9 +32,6 @@ const Login = () => {
     e.preventDefault();
     if (isFormValid) {
       authenticate(email, password);
-      setTimeout(() => {
-        navigate(ROUTES.BOOKS);
-      }, 3000);
     }
   };
 

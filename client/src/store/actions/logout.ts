@@ -1,12 +1,12 @@
 import { AnyAction } from "redux";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebase/firebase.config";
 import { Dispatch } from "redux";
 import { USER_LOGOUT_FAIL, USER_LOGOUT_SUCCESS } from "../types";
 import { toast } from "react-toastify";
+import { removeLs } from "../../services/localStorageService";
+import { persistor } from "../../store";
 
 export const userLogoutSuccess = () => {
-  localStorage.removeItem("user_data");
+  removeLs();
   return {
     type: USER_LOGOUT_SUCCESS,
   };
@@ -20,7 +20,8 @@ export const userLogoutFail = () => {
 
 export const logout = () => async (dispatch: Dispatch<AnyAction>) => {
   try {
-    await signOut(auth);
+    console.log("LOGOUT");
+    await persistor.purge();
     dispatch(userLogoutSuccess());
     toast.warning("Has cerrado sesión");
   } catch (error) {

@@ -4,9 +4,13 @@ import { toast } from "react-toastify";
 import { saveLs } from "../services/localStorageService";
 import { useDispatch } from "react-redux";
 import { USER_LOGIN_SUCCESS } from "../store/types";
+import { RolesEnum } from "../constants/enum/RolesEnum";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../constants/constants";
 
 export const useAuth = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const authenticate = async (email: string, password: string) => {
     try {
@@ -26,6 +30,18 @@ export const useAuth = () => {
         type: USER_LOGIN_SUCCESS,
         payload: userData,
       });
+
+      switch(userData.role) {
+        case RolesEnum.ADMIN:
+          navigate(ROUTES.ADMIN_DASHBOARD)
+        break;
+        case RolesEnum.EMPLOYEE:
+          navigate(ROUTES.CATALOG)
+        break;
+        default:
+          navigate(ROUTES.BOOKS)
+        break;
+      }
 
     } catch (err: IError | any) {
       toast.error(err.message || 'Error en el servidor');
