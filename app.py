@@ -3,11 +3,13 @@ from backend.controller.UserController import user_controller
 from backend.controller.BookController import book_controller
 from backend.controller.CategoryController import category_controller
 from backend.controller.ShopController import shop_controller
-from flask_cors import CORS 
+from flask_cors import CORS
 
 app = Flask(__name__, static_folder='templates/assets')
 
-CORS(app, resources={r"/api/*": {"origins": "http://localhost:5173"}})
+origins = ["http://localhost:5173", "http://127.0.0.1:5000"]
+
+CORS(app, resources={r"/api/*": {"origins": origins}})
 
 app.register_blueprint(user_controller)
 app.register_blueprint(book_controller)
