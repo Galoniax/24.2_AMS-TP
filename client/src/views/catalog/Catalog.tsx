@@ -28,7 +28,7 @@ const Catalog = () => {
           </h3>
           <div className="flex gap-5 items-center">
             <p>
-              Mostrando <span className="font-bold">10030</span> resultados
+              Mostrando <span className="font-bold">{allBooks?.length || 0}</span> resultados
             </p>
             <select
               name="filter_by"

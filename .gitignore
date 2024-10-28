@@ -24,3 +24,5 @@ dist-ssr
 *.sw?
 
 backend/*/__pycache__
+templates
+/templates
