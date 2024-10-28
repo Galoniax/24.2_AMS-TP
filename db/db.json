@@ -3,7 +3,7 @@
         {
             "id": 1,
             "title": "Harry Potter y la Piedra Filosofal",
-            "price": 20200,
+            "price": 12928,
             "isOffer": true,
             "stock": 12,
             "imageUrl": "https://th.bing.com/th/id/R.805803cc0091320ff3392709185e8764?rik=ZVapd%2fHqWS%2bAjg&riu=http%3a%2f%2fcdn.coordiutil.com%2fimagen-harry_potter_y_la_piedra_filosofal_libro_1-1952728-0-0-0-75.jpg&ehk=tG4asswFSO%2bhBiDYqJazlnRx9ERwaqBOmwFZJ%2b85wv8%3d&risl=&pid=ImgRaw&r=0",
@@ -231,6 +231,6 @@
             "totalPrice": 20400,
             "timestamp": "2024-10-27T21:41:22.475069",
             "shippingMethod": "debit"
-        }  
+        }
     ]
 }
