@@ -186,5 +186,47 @@
             "dni": "12312321",
             "birthDate": "2024-10-24T03:00:00.000Z"
         }
+    ],
+    "purchases": [
+        {
+            "userId": 3,
+            "books": [
+                {
+                    "bookId": 1,
+                    "bookTitle": "Pepe",
+                    "bookPrice": 20200,
+                    "quantity": 1
+                },
+                {
+                    "bookId": 2,
+                    "bookTitle": "Pepe2",
+                    "bookPrice": 200,
+                    "quantity": 1
+                }
+            ],
+            "totalPrice": 20400,
+            "timestamp": "2024-10-27T21:39:24.855379",
+            "shippingMethod": "debit"
+        },
+        {
+            "userId": 5,
+            "books": [
+                {
+                    "bookId": 1,
+                    "bookTitle": "Pepe",
+                    "bookPrice": 20200,
+                    "quantity": 1
+                },
+                {
+                    "bookId": 2,
+                    "bookTitle": "Pepe2",
+                    "bookPrice": 200,
+                    "quantity": 1
+                }
+            ],
+            "totalPrice": 20400,
+            "timestamp": "2024-10-27T21:41:22.475069",
+            "shippingMethod": "debit"
+        }  
     ]
 }
