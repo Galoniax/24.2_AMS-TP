@@ -52,7 +52,7 @@ const Sidebar: React.FC = () => {
               </div>
               <img src={book.imageUrl} alt={book.title} className="w-[100px]" />
             </div>
-            <button className="absolute top-0 left-2 bg-red-500 rounded my-2" onClick={() => handleRemoveItem(book.id)}><MdDelete size={20} /></button>
+            <button className="absolute top-0 left-2 bg-red-500 rounded my-2" onClick={() => handleRemoveItem(book.id || 0)}><MdDelete size={20} /></button>
           </div>
         ))}
       </div>

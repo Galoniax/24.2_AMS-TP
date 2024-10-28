@@ -19,7 +19,7 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ roles, element }) => {
 
   const user = user_data;
 
-  if (!user || !roles.includes(user.role)) {
+  if (!user || !user.role || !roles.includes(user.role)) {
     return <Navigate to={ROUTES.ERROR_403} />;
   }
 

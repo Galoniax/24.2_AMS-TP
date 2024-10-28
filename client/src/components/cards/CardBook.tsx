@@ -13,11 +13,11 @@ import { addToCart } from '../../store/actions/cart';
 interface CardBookProps {
   book: IBook;
   showButton?: boolean;
-  userRole?: RolesEnum;
+  userRole?: RolesEnum | null;
   onEditBook?: (book: IBook) => void;
 }
 
-const CardBook: React.FC<CardBookProps> = ({ book, showButton = true, userRole = null, onEditBook }) => {
+const CardBook: React.FC<CardBookProps> = ({ book, showButton = true, userRole = undefined, onEditBook }) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 

@@ -65,7 +65,7 @@ const AdminBooks = () => {
               key={book.id}
               book={book}
               showButton={false}
-              userRole={userRole}
+              userRole={userRole || null}
               onEditBook={handleEditClick}
             />
           ))}
