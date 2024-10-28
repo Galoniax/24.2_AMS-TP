@@ -3,8 +3,8 @@ from functools import wraps
 from flask import request, jsonify
 from backend.config.config import SECRET_KEY
 
-def generate_token(email, role):
-  token = jwt.encode({"email": email, "role": role}, SECRET_KEY, algorithm="HS256")
+def generate_token(email, role, id):
+  token = jwt.encode({"email": email, "role": role, "id": id}, SECRET_KEY, algorithm="HS256")
   return token
 
 def token_required(f):

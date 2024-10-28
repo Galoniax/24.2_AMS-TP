@@ -15,22 +15,29 @@ def load_data():
 def save_data(data):
   with open(DATABASE_FILE, 'w') as f:
     json.dump(data, f, indent=4)
-
+    
 @user_controller.route('/login', methods=['POST'])
 def login():
-  data = load_data()
-  users = data.get("users", [])
-  body = request.json
-  email = body.get('email')
-  password = body.get('password')
+    data = load_data()
+    users = data.get("users", [])
+    body = request.json
+    email = body.get('email')
+    password = body.get('password')
 
-  for user in users:
-    if user['email'] == email and user['password'] == password:
-      token = generate_token(email, user['role'] or "CLIENT")
-      return jsonify({"message": "Login exitoso", "token": token, "username": user['username'], "id": user['id'], "role": user['role'] or "CLIENT"}), 200
+    for user in users:
+        if user['email'] == email and user['password'] == password:
+            role = user.get("role", "CLIENT")  # Usar CLIENT si role no está definido
+            token = generate_token(email, role, id=user['id'])
+            return jsonify({
+                "message": "Login exitoso",
+                "token": token,
+                "username": user['username'],
+                "id": user['id'],
+                "role": role
+            }), 200
+
+    return jsonify({"message": "Credenciales incorrectas"}), 401
   
-  return jsonify({"message": "Credenciales incorrectas"}), 401
-
 @user_controller.route('/register', methods=['POST'])
 def register():
     data = load_data()
