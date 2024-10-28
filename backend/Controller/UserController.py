@@ -1,7 +1,7 @@
 from flask import Blueprint, request, jsonify
 import json
 import os
-from backend.security.auth import generate_token, has_any_role
+from backend.security.auth import generate_token, has_any_role, token_required
 from backend.config.config import DATABASE_FILE, API_PREFIX
 
 user_controller = Blueprint('user_controller', __name__, url_prefix=f"/{API_PREFIX}/")
@@ -66,3 +66,18 @@ def get_users():
     data = json.load(db_file)
     users = data.get('users', [])
     return jsonify(users), 200
+  
+  
+
+@user_controller.route('/users/<int:user_id>/subscription', methods=['POST'])
+@token_required
+def buy_subscription(user_id):
+  with open(DATABASE_FILE) as db_file:
+    data = json.load(db_file)
+    users = data.get('users', [])
+    for user in users:
+      if user['id'] == user_id:
+        user['subscription'] = True
+        save_data(data)
+        return jsonify({"message": "Suscripción comprada exitosamente"}), 200
+    return jsonify({"message": "Usuario no encontrado"}), 404
