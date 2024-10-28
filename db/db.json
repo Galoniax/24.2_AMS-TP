@@ -161,14 +161,16 @@
             "username": "admin",
             "email": "admin@admin.com",
             "password": "admin123",
-            "role": "ADMIN"
+            "role": "ADMIN",
+            "subscription": true
         },
         {
             "id": 2,
             "email": "admin2@admin.com",
             "username": "admin2",
             "password": "admin123",
-            "role": "EMPLOYEE"
+            "role": "EMPLOYEE",
+            "subscription": false
         },
         {
             "id": 3,
@@ -176,7 +178,8 @@
             "password": "123456",
             "username": "gerito",
             "dni": "42344807",
-            "birthDate": "2022-01-19T03:00:00.000Z"
+            "birthDate": "2022-01-19T03:00:00.000Z",
+            "subscription": true
         },
         {
             "id": 4,
@@ -184,7 +187,8 @@
             "password": "123456",
             "username": "Gerito",
             "dni": "12312321",
-            "birthDate": "2024-10-24T03:00:00.000Z"
+            "birthDate": "2024-10-24T03:00:00.000Z",
+            "suscription": false
         }
     ],
     "purchases": [
