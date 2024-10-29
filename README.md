@@ -25,10 +25,7 @@
 
 ### Flask
 - Por último, en el directorio raíz junto donde se encuentra `app.py` - pyhton app.py
-
-
 <!-- TODO: FIXME -->
-pip install PyJWT
-
+- pip install PyJWT
 <!-- Para desarrollo -->
-pip install flask-cors
+- pip install flask-cors
