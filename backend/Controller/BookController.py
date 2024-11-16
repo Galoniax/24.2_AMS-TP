@@ -1,6 +1,8 @@
 from flask import Blueprint, jsonify, request
 from backend.controller.UserController import save_data
 from backend.security.auth import token_required, has_any_role
+from backend.models import Book
+from backend.config.DatabaseHelper import db
 import json
 from backend.config.config import DATABASE_FILE, API_PREFIX
 from backend.util.token_util import get_user_id_from_token
@@ -10,53 +12,37 @@ book_controller = Blueprint('book_controller', __name__, url_prefix=f"/{API_PREF
 @book_controller.route('/books', methods=['GET'])
 @token_required
 def get_books():
-  with open(DATABASE_FILE) as db_file:
-    data = json.load(db_file)
-    books = data.get('books', [])
-    users = data.get('users', [])
-    
     user_id = get_user_id_from_token()
-    
+
     if user_id is None:
-        return jsonify({"message": "Usuario no autenticado"}), 401
+      return jsonify({"message": "Usuario no autenticado"}), 401
 
-    current_user = next((user for user in users if user['id'] == user_id), None)
-       
-    if current_user is None:
-        return jsonify(books), 200
-      
-    # Verificar si el usuario tiene una suscripción y si tiene la clave 'subscription'
-    if current_user.get('subscription', False) is True:
-        for book in books:
-          
-            if book.get('isOffer', False):  # Verificar si el libro tiene la clave 'isOffer'
-                book['price'] *= 0.8  # Aplicar descuento de suscripción
+    books = Book.query.all()
+    books_list = [book.to_dict() for book in books]
 
-    return jsonify(books), 200
-      
-    
+    return jsonify(books_list), 200
 
 @book_controller.route('/books', methods=['POST'])
 @token_required
 @has_any_role(['ADMIN'])
 def create_book():
-    with open(DATABASE_FILE) as db_file:
-        data = json.load(db_file)
-        books = data.get('books', [])
-    
-    # Generar el id como el primer elemento del nuevo libro
-    new_book_data = request.json
-    id = int(len(books) + 1)
-    new_book = {"id": id}  # Crear diccionario con id al inicio
-    
-    # Añadir el resto de los datos a `new_book`
-    new_book.update(new_book_data)
-    
-    books.append(new_book)
-    data['books'] = books
-    save_data(data)
-    
-    return jsonify({"message": "Libro creado exitosamente"}), 201
+  data = request.json
+
+  new_book = Book(
+    title=data['title'],
+    price=data['price'],
+    isOffer=data.get('isOffer', False),
+    stock=data['stock'],
+    imageUrl=data.get('imageUrl'),
+    isNew=data.get('isNew', False),
+    author=data['author'],
+    categoryId=data['categoryId']
+  )
+
+  db.session.add(new_book)
+  db.session.commit()
+
+  return jsonify({"message": "Libro creado exitosamente"}), 201
 
 @book_controller.route('/books/<int:id>', methods=['GET'])
 @token_required

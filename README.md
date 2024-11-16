@@ -20,12 +20,7 @@
 - Primero buildeamos nuestra aplicacion web react `cd ./client && npm run build`. 
 - Esto nos generá el build dentro de templates en el directorio raíz, ya está configurado asi en el fichero `(client) vite.config.ts`
 
-### API
-- Luego levantamos nuestra "API" de json-server `cd ./client && npm run json-server`
 
 ### Flask
+- pip install -r requirements.txt
 - Por último, en el directorio raíz junto donde se encuentra `app.py` - pyhton app.py
-<!-- TODO: FIXME -->
-- pip install PyJWT
-<!-- Para desarrollo -->
-- pip install flask-cors
