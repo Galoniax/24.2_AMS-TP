@@ -4,18 +4,18 @@ import { useCategory } from '../../hooks/useCategory';
 import { BsCash } from 'react-icons/bs';
 import { RiStockLine } from 'react-icons/ri';
 import { Nullable } from '../../constants/constants';
+import { MdCloudUpload, MdDelete } from 'react-icons/md';
 
 interface BookModalProps {
   isOpen: boolean;
   initialBook?: Nullable<IBook>;
   onClose: () => void;
   onDelete: (bookId: number) => void;
-  onSubmit: (book: IBook) => void;
+  onSubmit: (book: IBook, imageFile: File | null) => void;
 }
 
 const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onDelete, onSubmit }) => {
   const { categories } = useCategory();
-
   const [book, setBook] = useState<IBook>({
     id: initialBook?.id || null,
     title: initialBook?.title || '',
@@ -27,10 +27,12 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
     author: initialBook?.author || '',
     categoryId: initialBook?.categoryId || null,
   });
+  const [image, setImage] = useState<File | null>(null);
 
   useEffect(() => {
     if (initialBook) {
       setBook(initialBook);
+      setImage(null); 
     }
   }, [initialBook]);
 
@@ -44,9 +46,15 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    onSubmit(book);
+    onSubmit(book, image);
     resetForm();
     onClose();
+  };
+
+  const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (e.target.files && e.target.files.length > 0) {
+      setImage(e.target.files[0]);
+    }
   };
 
   const resetForm = () => {
@@ -103,15 +111,40 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
             />
             <RiStockLine className='absolute top-1/2 right-3 bg-slate-50 -translate-y-1/2 z-20' size={20} />
           </div>
-          <input
-            type="text"
-            name="imageUrl"
-            placeholder="URL de la Imagen"
-            value={book.imageUrl}
-            onChange={handleChange}
-            className="w-full border rounded p-2"
-            required
-          />
+          <div className="w-full flex items-center justify-center relative">
+            {!image && !book.imageUrl ? (
+              <label className="w-full bg-gray-200 p-5 cursor-pointer h-[300px] border-dotted border-2 border-gray-400 flex items-center flex-col justify-center">
+                <MdCloudUpload className="text-gray-400" size={50} />
+                <span className="text-gray-400">Subir imagen</span>
+                <input
+                  type="file"
+                  accept="image/*"
+                  onChange={handleImageChange}
+                  className="hidden"
+                />
+              </label>
+            ) : (
+              <div className="relative w-full h-[300px]">
+                <img
+                  src={image ? URL.createObjectURL(image) : book.imageUrl}
+                  alt="Preview"
+                  className="w-full h-64 object-contain rounded"
+                />
+                <button
+                  type="button"
+                  className="absolute top-2 right-2 bg-red-600 text-white rounded p-2"
+                  onClick={() => {
+                    setImage(null);
+                    if (initialBook) {
+                      setBook((prev) => ({ ...prev, imageUrl: "" }));
+                    }
+                  }}
+                >
+                  <MdDelete size={20} />
+                </button>
+              </div>
+            )}
+          </div>
           <input
             type="text"
             name="author"

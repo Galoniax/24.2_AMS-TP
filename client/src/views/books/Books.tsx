@@ -1,21 +1,22 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { useBooks } from '../../hooks/useBooks';
 import CardBook from '../../components/cards/CardBook';
 import Button from '../../components/button/Button';
-import Carousel from '../../components/carousel/BookCarousel';
 import { useInView } from "react-intersection-observer";
 import { useWindowSize } from '../../hooks/useWindowSize';
 import { motion, useSpring } from 'framer-motion';
+import PaginationComponent from '../../components/pagination/PaginationComponent';
+import { appConfig } from '../../config/ApplicationConfig';
 
 const Books: React.FC = () => {
-  const { allBooks } = useBooks();
-
+  const [pageNumber, setPageNumber] = useState(appConfig.DEFAULT_PAGE_NUMBER);
+  const pageSize = appConfig.DEFAULT_PAGE_SIZE;
+  const { allBooks } = useBooks(pageNumber, pageSize);
   const [cardRef, inView] = useInView({ threshold: 0.5 });
   const windowSize = useWindowSize();
-
   const scaleProgress = useRef(useSpring(1)).current;
   const opacityProgress = useRef(useSpring(1)).current;
-
+  
   useEffect(() => {
     if(windowSize.isMobile) {
       scaleProgress.set(1);
@@ -26,8 +27,12 @@ const Books: React.FC = () => {
     }
   }, [inView]);
 
+  const handlePageChange = (newPage: number) => {
+    setPageNumber(newPage);
+  };
+
   return (
-    <motion.section className="w-[100%] h-[auto] pb-16 px-12" id="book_section">
+    <motion.section className="w-[100%] h-[auto] pb-16 px-12" id="book_section" ref={cardRef}>
       <div className="my-4 flex w-full items-center justify-center gap-3">
         <Button
           text="Ofertas"
@@ -50,21 +55,20 @@ const Books: React.FC = () => {
       <div className="w-[100%] flex flex-col">
         <h3 className="text-3xl">Libros Destacados</h3>
         <div className="w-[300px] h-[1px] bg-slate-400 my-2"></div>
-        <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
-          {allBooks.map((book) => (
-            <CardBook key={book.id} book={book} />
-          ))}
-        </motion.div>
-        <h3 className="text-3xl mt-12">Todos nuestros libros</h3>
-        <div className="w-[300px] h-[1px] bg-slate-400 my-2"></div>
-        <motion.div className="flex gap-10 flex-wrap justify-start mt-4" 
-          ref={cardRef}
-          style={{
-            scale: scaleProgress,
-            opacity: opacityProgress,
-          }}>
-          <Carousel books={allBooks} />
-        </motion.div>
+        <PaginationComponent
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          totalItems={allBooks?.totalItems || 0}
+          totalPages={allBooks?.totalPages || 1}
+          isLast={allBooks?.isLast || false}
+          onPageChange={handlePageChange}
+        >
+          <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
+            {(allBooks && allBooks.items.length > 0) && allBooks.items.map((book) => (
+              <CardBook key={book.id} book={book} />
+            ))}
+          </motion.div>
+        </PaginationComponent>
       </div>
     </motion.section>
   );

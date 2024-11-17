@@ -9,21 +9,39 @@ import { IBook } from "../../../interfaces/book.interface";
 import { RootState } from "../../../store";
 import BookModal from "../../dialogs/BookModal";
 import { toast } from "react-toastify";
+import firebaseService from "../../../services/firebaseService";
+import { appConfig } from "../../../config/ApplicationConfig";
+import PaginationComponent from "../../pagination/PaginationComponent";
 
 const AdminBooks = () => {
   const currentUser = useSelector((state: RootState) => state.auth);
   const userRole = currentUser?.user_data?.role || null;
 
-  const { allBooks, refreshBooks } = useBooks();
+  const [pageNumber, setPageNumber] = useState(appConfig.DEFAULT_PAGE_NUMBER);
+  const pageSize = appConfig.DEFAULT_PAGE_SIZE;
+
+  const { allBooks, refreshBooks } = useBooks(pageNumber, pageSize);
   const [showModal, setShowModal] = useState(false);
   const [editBook, setEditBook] = useState<IBook | null>(null);
 
-  const handleCreateOrUpdateBook = async (book: IBook) => {
-    book.id ? await updateBook(book.id, book) : await createBook(book);
-    toast.success(book.id ? "Libro actualizado" : "Nuevo libro creado");
-    setShowModal(false);
-    setEditBook(null);
-    refreshBooks();
+  const handlePageChange = (newPage: number) => {
+    setPageNumber(newPage);
+  };
+
+  const handleCreateOrUpdateBook = async (book: IBook, imageFile: File | null) => {
+    try {
+      if (imageFile) {
+        const imageUrl = await firebaseService.saveImageBook(imageFile);
+        book.imageUrl = imageUrl;
+      }
+      book.id ? await updateBook(book.id, book) : await createBook(book);
+      toast.success(book.id ? "Libro actualizado" : "Nuevo libro creado");
+      setShowModal(false);
+      setEditBook(null);
+      refreshBooks();
+    } catch (error) {
+      toast.error("Error al guardar el libro");
+    }
   };
 
   const handleEditClick = (book: IBook) => {
@@ -39,7 +57,6 @@ const AdminBooks = () => {
       refreshBooks();
     } catch (error) {
       toast.error("Error al eliminar el libro");
-      console.error("Error al eliminar el libro:", error);
     }
   };
 
@@ -59,17 +76,26 @@ const AdminBooks = () => {
             <GrAdd />
           </button>
         </div>
-        <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
-          {allBooks.map((book) => (
-            <CardBook
-              key={book.id}
-              book={book}
-              showButton={false}
-              userRole={userRole || null}
-              onEditBook={handleEditClick}
-            />
-          ))}
-        </motion.div>
+        <PaginationComponent
+          pageNumber={pageNumber}
+          pageSize={pageSize}
+          totalItems={allBooks?.totalItems || 0}
+          totalPages={allBooks?.totalPages || 1}
+          isLast={allBooks?.isLast || false}
+          onPageChange={handlePageChange}
+        >
+          <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
+            {(allBooks && allBooks.items.length > 0) && allBooks.items.map((book) => (
+              <CardBook
+                key={book.id}
+                book={book}
+                showButton={false}
+                userRole={userRole || null}
+                onEditBook={handleEditClick}
+              />
+            ))}
+          </motion.div>
+        </PaginationComponent>
       </div>
       <BookModal
         isOpen={showModal}

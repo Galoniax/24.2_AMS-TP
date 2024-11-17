@@ -8,7 +8,7 @@ class Book(db.Model):
   price = db.Column(db.Float, nullable=False)
   isOffer = db.Column(db.Boolean, default=False)
   stock = db.Column(db.Integer, nullable=False)
-  imageUrl = db.Column(db.String(255), nullable=True)
+  imageUrl = db.Column(db.String(1024), nullable=True)
   isNew = db.Column(db.Boolean, default=False)
   author = db.Column(db.String(255), nullable=False)
   categoryId = db.Column(db.Integer, db.ForeignKey('categories.id'), nullable=False)

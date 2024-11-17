@@ -51,7 +51,6 @@ export const useAuth = () => {
   const userRegister = async (email: string, password: string, username: string, dni: string, birthDate: string) => {
     try {
       const response = await register(email, password, username, dni, birthDate);
-      console.log(response);
       toast.success('Registro exitoso, serás redirigido al login.');
     } catch (err: IError | any) {
       toast.error(err.message || 'Error en el servidor');

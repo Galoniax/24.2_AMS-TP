@@ -22,8 +22,6 @@ const BookDetail = () => {
       try {
         const data = await fetchBookById(Number(id));
         setBook(data);
-      } catch (error) {
-        console.error('Error fetching book by ID:', error);
       } finally {
         setLoading(false);
       }
@@ -80,12 +78,14 @@ const BookDetail = () => {
               </p>
             </div>
           </div>
-          <div className="w-full my-10">
-            <h3 className="my-2 uppercase text-xl font-bold">
-              Podría interesarte...
-            </h3>
-            <Carousel books={allBooks} slidesPerView={4} />
-          </div>
+            {(allBooks && allBooks.items.length > 0) &&
+              <div className="w-full my-10">
+                <h3 className="my-2 uppercase text-xl font-bold">
+                  Podría interesarte...
+                </h3>
+                <Carousel books={allBooks?.items} slidesPerView={4} />
+              </div>
+            }
         </div>
         {/* Rigth Content */}
         <div className="w-[25%] border px-5 py-10 sticky top-2">

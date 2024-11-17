@@ -7,7 +7,6 @@ export const login = async (email: string, password: string) => {
     return response.data;
   } catch (err: any) {
     const error = err as IError;
-    console.log(error.response.data.message)
     throw error.response.data.message;
   }
 }
@@ -18,7 +17,6 @@ export const register = async (email: string, password: string, username: string
     return response.data;
   } catch (err: any) {
     const error = err as IError;
-    console.log(error.response.data.message)
     throw error.response.data.message;
   }
 }

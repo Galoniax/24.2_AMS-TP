@@ -1,8 +1,17 @@
 import axiosInterceptor from '../interceptor/axios-interceptor';
 import { IBook } from '../interfaces/book.interface';
+import { IPagedResponse } from '../interfaces/common/page-response.interface';
 
-export const fetchAllBooks = async (): Promise<IBook[]> => {
-  const response = await axiosInterceptor.get('/books');
+export const fetchAllBooks = async (
+  pageNumber?: number, pageSize?: number, categoryId?: number
+): Promise<IPagedResponse<IBook>> => {
+  const params: Record<string, number> = {};
+
+  if (pageNumber !== undefined) params.pageNumber = pageNumber;
+  if (pageSize !== undefined) params.pageSize = pageSize;
+  if (categoryId !== undefined) params.categoryId = categoryId;
+
+  const response = await axiosInterceptor.get(`/books`, { params });
   return response.data;
 };
 

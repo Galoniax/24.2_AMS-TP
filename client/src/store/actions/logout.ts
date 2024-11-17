@@ -20,7 +20,6 @@ export const userLogoutFail = () => {
 
 export const logout = () => async (dispatch: Dispatch<AnyAction>) => {
   try {
-    console.log("LOGOUT");
     await persistor.purge();
     dispatch(userLogoutSuccess());
     toast.warning("Has cerrado sesión");

@@ -34,7 +34,6 @@ const AdminCategories = () => {
       refrehCategories();
     } catch (error) {
       toast.error("Error al eliminar la Categoria");
-      console.error("Error al eliminar la Categoria:", error);
     }
   };
 

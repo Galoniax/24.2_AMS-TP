@@ -3,6 +3,7 @@ import store from '../store';
 import { SET_LOADING } from '../store/types';
 import { getFromLs } from '../services/localStorageService';
 import { appConfig } from '../config/ApplicationConfig';
+import LoggerService from '../services/loggerService';
 
 const axiosInterceptor = axios.create({
   baseURL: appConfig.API_URL,
@@ -33,7 +34,7 @@ axiosInterceptor.interceptors.response.use(
   },
   (error) => {
     store.dispatch({ type: SET_LOADING, payload: false });
-    console.error('Error en la respuesta', error);
+    LoggerService.error('Error en la respuesta', error);
     return Promise.reject(error);
   }
 );

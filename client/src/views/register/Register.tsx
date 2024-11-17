@@ -12,6 +12,7 @@ import Button from '../../components/button/Button';
 import { useAuth } from '../../hooks/useAuth';
 import { useNavigate } from 'react-router-dom';
 import { ROUTES } from '../../constants/constants';
+import LoggerService from '../../services/loggerService';
 
 const Register = () => {
   const { userRegister } = useAuth();
@@ -47,7 +48,7 @@ const Register = () => {
         setTimeout(() => {
           navigate(ROUTES.LOGIN);
         }, 3000)
-      } catch (err: any) { console.error(err) }
+      } catch (err: any) { LoggerService.error(err) }
     }
   };
 

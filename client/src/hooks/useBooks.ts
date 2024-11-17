@@ -1,24 +1,30 @@
 import { useEffect, useState } from 'react';
 import { IBook } from '../interfaces/book.interface';
-import { fetchAllBooks, fetchBooksByCategoryId } from '../services/bookService';
-import { Nullable } from '../constants/constants';
+import { fetchAllBooks } from '../services/bookService';
+import { IPagedResponse } from '../interfaces/common/page-response.interface';
 
-export const useBooks = (categoryId?: Nullable<number>) => {
-  const [allBooks, setAllBooks] = useState<IBook[]>([]);
+export const useBooks = (
+  pageNumber?: number, 
+  pageSize?: number, 
+  categoryId?: number
+) => {
+  const [allBooks, setAllBooks] = useState<IPagedResponse<IBook>>();
+  const [isFetching, setIsFetching] = useState(false);
 
   const fetchBooks = async () => {
-    let books;
-    if (categoryId) {
-      books = await fetchBooksByCategoryId(categoryId);
-    } else {
-      books = await fetchAllBooks();
+    if (isFetching) return;
+    setIsFetching(true);
+    try {
+      const books = await fetchAllBooks(pageNumber, pageSize, categoryId);
+      setAllBooks(books);
+    } finally {
+      setIsFetching(false);
     }
-    setAllBooks(books);
   };
 
   useEffect(() => {
     fetchBooks();
-  }, [categoryId]);
+  }, [pageNumber, pageSize, categoryId]);
 
   return {
     allBooks,
