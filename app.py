@@ -11,7 +11,7 @@ app = Flask(__name__, static_folder='templates/assets')
 
 origins = ["http://localhost:5173", "http://127.0.0.1:5000"]
 
-CORS(app, resources={r"/api/*": {"origins": origins}})
+CORS(app, origins=origins, supports_credentials=True)
 
 init_db(app)
 migrate = Migrate(app, db)

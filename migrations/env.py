@@ -35,7 +35,7 @@ config.set_main_option('sqlalchemy.url', get_engine_url())
 
 # Importar metadata de los modelos
 from backend.config.DatabaseHelper import db
-from backend.models import Book, Category  # Importa los modelos aquí
+from backend.models import Book, Category, User  # Importa los modelos aquí
 
 # Configurar la metadata para la autogeneración
 target_metadata = db.metadata

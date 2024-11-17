@@ -1,9 +1,7 @@
 from flask import Blueprint, jsonify, request
-from backend.controller.UserController import save_data
 from backend.security.auth import token_required, has_any_role
 import json
 import os
-import requests
 from datetime import datetime
 from backend.config.config import DATABASE_FILE, API_PREFIX
 from backend.util.token_util import get_user_id_from_token
