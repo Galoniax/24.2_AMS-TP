@@ -1,10 +1,13 @@
 from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
+import os
 
 db = SQLAlchemy()
 
 def init_db(app):
     try:
-        app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+mysqlconnector://root:42344807@localhost:3306/libreria_yenny'
+        load_dotenv()
+        app.config['SQLALCHEMY_DATABASE_URI'] = os.getenv('DATABASE_URL')
         app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
         db.init_app(app)
         print("Conexión a la base de datos configurada correctamente.")
