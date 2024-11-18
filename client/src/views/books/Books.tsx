@@ -10,7 +10,7 @@ import { appConfig } from '../../config/ApplicationConfig';
 
 const Books: React.FC = () => {
   const [pageNumber, setPageNumber] = useState(appConfig.DEFAULT_PAGE_NUMBER);
-  const pageSize = appConfig.DEFAULT_PAGE_SIZE;
+  const [pageSize, setPageSize] = useState(appConfig.DEFAULT_PAGE_SIZE);
   const { allBooks } = useBooks(pageNumber, pageSize);
   const [cardRef, inView] = useInView({ threshold: 0.5 });
   const windowSize = useWindowSize();
@@ -29,6 +29,11 @@ const Books: React.FC = () => {
 
   const handlePageChange = (newPage: number) => {
     setPageNumber(newPage);
+  };
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageNumber(appConfig.DEFAULT_PAGE_NUMBER);
+    setPageSize(newPageSize);
   };
 
   return (
@@ -62,6 +67,7 @@ const Books: React.FC = () => {
           totalPages={allBooks?.totalPages || 1}
           isLast={allBooks?.isLast || false}
           onPageChange={handlePageChange}
+          onPageSizeChange={handlePageSizeChange}
         >
           <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
             {(allBooks && allBooks.items.length > 0) && allBooks.items.map((book) => (

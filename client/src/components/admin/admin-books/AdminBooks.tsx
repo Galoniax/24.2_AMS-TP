@@ -18,11 +18,17 @@ const AdminBooks = () => {
   const userRole = currentUser?.user_data?.role || null;
 
   const [pageNumber, setPageNumber] = useState(appConfig.DEFAULT_PAGE_NUMBER);
-  const pageSize = appConfig.DEFAULT_PAGE_SIZE;
+  const [pageSize, setPageSize] = useState(appConfig.DEFAULT_PAGE_SIZE);
+
 
   const { allBooks, refreshBooks } = useBooks(pageNumber, pageSize);
   const [showModal, setShowModal] = useState(false);
   const [editBook, setEditBook] = useState<IBook | null>(null);
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageNumber(appConfig.DEFAULT_PAGE_NUMBER);
+    setPageSize(newPageSize);
+  };
 
   const handlePageChange = (newPage: number) => {
     setPageNumber(newPage);
@@ -62,8 +68,8 @@ const AdminBooks = () => {
 
   return (
     <div className="w-full flex flex-col justify-center align-center px-7 mb-10">
-      <div>
-        <div className="flex items-center justify-between">
+      <div className="w-full flex flex-col items-start justify-start gap-5">
+        <div className="w-full flex items-center justify-between">
           <h3 className="text-2xl font-bold">Todos los libros</h3>
           <button
             onClick={() => {
@@ -73,7 +79,7 @@ const AdminBooks = () => {
             className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
             title="Añadir libro"
           >
-            <GrAdd />
+            <GrAdd size={20} />
           </button>
         </div>
         <PaginationComponent
@@ -83,6 +89,7 @@ const AdminBooks = () => {
           totalPages={allBooks?.totalPages || 1}
           isLast={allBooks?.isLast || false}
           onPageChange={handlePageChange}
+          onPageSizeChange={handlePageSizeChange}
         >
           <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
             {(allBooks && allBooks.items.length > 0) && allBooks.items.map((book) => (

@@ -2,16 +2,30 @@ import { useState } from 'react';
 import CardBook from '../../components/cards/CardBook';
 import Filter from '../../components/filter/Filter';
 import { useBooks } from '../../hooks/useBooks';
-import { IBook } from '../../interfaces/book.interface';
 import { Nullable } from '../../constants/constants';
 import NoBooksImg from '../../assets/images/no-books.png';
+import { appConfig } from '../../config/ApplicationConfig';
+import { motion } from 'framer-motion';
+import PaginationComponent from '../../components/pagination/PaginationComponent';
 
 const Catalog = () => {
   const [selectedCategoryId, setSelectedCategoryId] = useState<Nullable<number>>(null);
-  const { allBooks } = useBooks(selectedCategoryId);
+  const [pageNumber, setPageNumber] = useState(appConfig.DEFAULT_PAGE_NUMBER);
+  const [pageSize, setPageSize] = useState<number>(appConfig.DEFAULT_PAGE_SIZE);
+  const { allBooks } = useBooks(pageNumber, pageSize, selectedCategoryId || undefined);
 
   const handleSelectCategory = (categoryId: number | null) => {
+    setPageNumber(appConfig.DEFAULT_PAGE_NUMBER);
     setSelectedCategoryId(categoryId);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    setPageNumber(newPage);
+  };
+
+  const handlePageSizeChange = (newPageSize: number) => {
+    setPageNumber(appConfig.DEFAULT_PAGE_NUMBER);
+    setPageSize(newPageSize);
   };
 
   return (
@@ -28,7 +42,7 @@ const Catalog = () => {
           </h3>
           <div className="flex gap-5 items-center">
             <p>
-              Mostrando <span className="font-bold">{allBooks?.length || 0}</span> resultados
+              Mostrando <span className="font-bold">{allBooks?.totalItems || 0}</span> resultados
             </p>
             <select
               name="filter_by"
@@ -46,19 +60,32 @@ const Catalog = () => {
         </div>
         {/* Content - Books */}
         <div className="w-full min-h-[90vh] flex flex-wrap items-start justify-start gap-2 my-5">
-          {
-            allBooks && allBooks.length > 0 ? 
-            allBooks?.map((book: IBook) => (
-              <CardBook key={book.id} book={book} />
-            ))
-            :
-            <div className='w-full h-full flex items-start justify-center py-10'>
-              <div className='w-full flex flex-col items-center justify-center py-10 bg-slate-100 gap-5'>
-                <img src={NoBooksImg} alt="No se encontraron libros. Imagen generada por IA" className='w-[300px] h-[300px] object-contain' />
-                <p className='text-3xl'>Lo sentimos, no hay libros disponibles para esa categoría</p>
+          <PaginationComponent
+            pageNumber={pageNumber}
+            pageSize={pageSize}
+            totalItems={allBooks?.totalItems || 0}
+            totalPages={allBooks?.totalPages || 1}
+            isLast={allBooks?.isLast || false}
+            onPageChange={handlePageChange}
+            onPageSizeChange={handlePageSizeChange}
+          >
+          
+            {
+              allBooks && allBooks.items.length > 0 ? 
+              <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
+                {allBooks.items.map((book) => (
+                  <CardBook key={book.id} book={book} />
+                ))}
+              </motion.div>
+              :
+              <div className='w-full h-full flex items-start justify-center py-10'>
+                <div className='w-full flex flex-col items-center justify-center py-10 bg-slate-100 gap-5'>
+                  <img src={NoBooksImg} alt="No se encontraron libros. Imagen generada por IA" className='w-[300px] h-[300px] object-contain' />
+                  <p className='text-3xl'>Lo sentimos, no hay libros disponibles para esa categoría</p>
+                </div>
               </div>
-            </div>
-          }
+            }
+          </PaginationComponent>
         </div>
       </div>
     </section>
