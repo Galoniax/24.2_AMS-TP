@@ -14,15 +14,15 @@ def login():
 
   user = User.query.filter_by(email=email, password=password).first()
   if user:
-      role = user.role or "CLIENT"
-      token = generate_token(user.email, role, id=user.id)
-      return jsonify({
-          "message": "Login exitoso",
-          "token": token,
-          "username": user.username,
-          "id": user.id,
-          "role": role
-      }), 200
+    role = user.role or "CLIENT"
+    token = generate_token(user.email, role, id=user.id)
+    return jsonify({
+      "message": "Login exitoso",
+      "token": token,
+      "username": user.username,
+      "id": user.id,
+      "role": role
+    }), 200
 
   return jsonify({"message": "Credenciales incorrectas"}), 401
 
@@ -33,16 +33,16 @@ def register():
   new_email = new_user_data.get('email')
 
   if User.query.filter_by(username=new_username).first():
-      return jsonify({"message": "Nombre de usuario ya registrado"}), 409
+    return jsonify({"message": "Nombre de usuario ya registrado"}), 409
   if User.query.filter_by(email=new_email).first():
-      return jsonify({"message": "Correo electrónico ya registrado"}), 409
+    return jsonify({"message": "Correo electrónico ya registrado"}), 409
 
   new_user = User(
-      username=new_username,
-      email=new_email,
-      password=new_user_data.get('password'),
-      role=new_user_data.get('role', 'CLIENT'),
-      subscription=new_user_data.get('subscription', False)
+    username=new_username,
+    email=new_email,
+    password=new_user_data.get('password'),
+    role=new_user_data.get('role', 'CLIENT'),
+    subscription=new_user_data.get('subscription', False)
   )
 
   db.session.add(new_user)
