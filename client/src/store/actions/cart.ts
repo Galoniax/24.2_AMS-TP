@@ -1,6 +1,6 @@
 // src/store/actions/cartActions.ts
-import { IBook } from "../../interfaces/book.interface";
-import { ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART } from "../types";
+import { IBook } from '../../interfaces/book.interface';
+import { ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART } from '../types';
 
 export const addToCart = (book: IBook) => ({
   type: ADD_TO_CART,

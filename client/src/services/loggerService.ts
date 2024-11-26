@@ -1,7 +1,4 @@
-
-
 class LoggerService {
-
   static log(message: string, extra?: any) {
     console.log(message, extra);
   }
@@ -17,7 +14,6 @@ class LoggerService {
   static info(message: string, extra?: any) {
     console.info(message, extra);
   }
-
 }
 
 export default LoggerService;

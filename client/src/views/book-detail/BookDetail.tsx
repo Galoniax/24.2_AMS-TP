@@ -42,7 +42,7 @@ const BookDetail = () => {
           {loading ? 'Cargando...' : 'Libro no encontrado'}
         </h1>
       </section>
-      );
+    );
   }
 
   return (
@@ -78,14 +78,14 @@ const BookDetail = () => {
               </p>
             </div>
           </div>
-            {(allBooks && allBooks.items.length > 0) &&
-              <div className="w-full my-10">
-                <h3 className="my-2 uppercase text-xl font-bold">
-                  Podría interesarte...
-                </h3>
-                <Carousel books={allBooks?.items} slidesPerView={4} />
-              </div>
-            }
+          {allBooks && allBooks.items.length > 0 && (
+            <div className="w-full my-10">
+              <h3 className="my-2 uppercase text-xl font-bold">
+                Podría interesarte...
+              </h3>
+              <Carousel books={allBooks?.items} slidesPerView={4} />
+            </div>
+          )}
         </div>
         {/* Rigth Content */}
         <div className="w-[25%] border px-5 py-10 sticky top-2">
@@ -99,7 +99,9 @@ const BookDetail = () => {
                   </p>
                   <p className="text-2xl font-bold">
                     {appConfig.CURRENCY_SYMBOL}{' '}
-                    {formatPrice(book.price ? book.price - book?.price * 0.1 : 0)}
+                    {formatPrice(
+                      book.price ? book.price - book?.price * 0.1 : 0,
+                    )}
                   </p>
                 </div>
               </React.Fragment>

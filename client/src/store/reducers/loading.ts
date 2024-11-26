@@ -9,7 +9,10 @@ const initialState: LoadingState = {
   isLoading: false,
 };
 
-export default function loadingReducer(state = initialState, action: any): LoadingState {
+export default function loadingReducer(
+  state = initialState,
+  action: any,
+): LoadingState {
   switch (action.type) {
     case SET_LOADING:
       return {

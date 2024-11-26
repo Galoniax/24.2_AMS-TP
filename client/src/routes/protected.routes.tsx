@@ -6,12 +6,14 @@ import { ROUTES } from '../constants/constants';
 import { RootState } from '../store';
 
 interface ProtectedRouteProps {
-  roles: RolesEnum[]; 
+  roles: RolesEnum[];
   element: JSX.Element;
 }
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ roles, element }) => {
-  const { isAuthenticated, user_data } = useSelector((state: RootState) => state.auth);
+  const { isAuthenticated, user_data } = useSelector(
+    (state: RootState) => state.auth,
+  );
 
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.LOGIN} />;

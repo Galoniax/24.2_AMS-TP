@@ -14,7 +14,13 @@ interface BookModalProps {
   onSubmit: (book: IBook, imageFile: File | null) => void;
 }
 
-const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onDelete, onSubmit }) => {
+const BookModal: React.FC<BookModalProps> = ({
+  isOpen,
+  initialBook,
+  onClose,
+  onDelete,
+  onSubmit,
+}) => {
   const { categories } = useCategory();
   const [book, setBook] = useState<IBook>({
     id: initialBook?.id || null,
@@ -32,15 +38,20 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
   useEffect(() => {
     if (initialBook) {
       setBook(initialBook);
-      setImage(null); 
+      setImage(null);
     }
   }, [initialBook]);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value, type } = e.target;
     setBook((prevBook) => ({
       ...prevBook,
-      [name]: type === 'checkbox' && e.target instanceof HTMLInputElement ? e.target.checked : value,
+      [name]:
+        type === 'checkbox' && e.target instanceof HTMLInputElement
+          ? e.target.checked
+          : value,
     }));
   };
 
@@ -76,7 +87,9 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
   return (
     <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-70 z-50">
       <div className="bg-white rounded-lg shadow-lg w-4/5 md:w-3/5 h-auto overflow-auto p-6">
-        <h2 className="text-xl font-semibold mb-4">{initialBook ? 'Editar Libro' : 'Crear Libro'}</h2>
+        <h2 className="text-xl font-semibold mb-4">
+          {initialBook ? 'Editar Libro' : 'Crear Libro'}
+        </h2>
         <form onSubmit={handleSubmit} className="space-y-4">
           <input
             type="text"
@@ -87,7 +100,7 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
             className="w-full border rounded p-2"
             required
           />
-          <div className='relative'>
+          <div className="relative">
             <input
               type="number"
               name="price"
@@ -97,7 +110,10 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
               className="w-full border rounded p-2"
               required
             />
-            <BsCash className='absolute top-1/2 right-3 bg-slate-50 -translate-y-1/2 z-20' size={20} />
+            <BsCash
+              className="absolute top-1/2 right-3 bg-slate-50 -translate-y-1/2 z-20"
+              size={20}
+            />
           </div>
           <div className="relative">
             <input
@@ -109,7 +125,10 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
               className="w-full border rounded p-2"
               required
             />
-            <RiStockLine className='absolute top-1/2 right-3 bg-slate-50 -translate-y-1/2 z-20' size={20} />
+            <RiStockLine
+              className="absolute top-1/2 right-3 bg-slate-50 -translate-y-1/2 z-20"
+              size={20}
+            />
           </div>
           <div className="w-full flex items-center justify-center relative">
             {!image && !book.imageUrl ? (
@@ -136,7 +155,7 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
                   onClick={() => {
                     setImage(null);
                     if (initialBook) {
-                      setBook((prev) => ({ ...prev, imageUrl: "" }));
+                      setBook((prev) => ({ ...prev, imageUrl: '' }));
                     }
                   }}
                 >
@@ -181,7 +200,9 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
             className="w-full border rounded p-2"
             required
           >
-            <option value="" disabled>Seleccione una categoría</option>
+            <option value="" disabled>
+              Seleccione una categoría
+            </option>
             {categories.map((category) => (
               <option key={category.id} value={category.id || 0}>
                 {category.name}
@@ -200,7 +221,7 @@ const BookModal: React.FC<BookModalProps> = ({ isOpen, initialBook, onClose, onD
             ) : (
               <div></div>
             )}
-            <div className='space-x-4'>
+            <div className="space-x-4">
               <button
                 type="button"
                 onClick={onClose}

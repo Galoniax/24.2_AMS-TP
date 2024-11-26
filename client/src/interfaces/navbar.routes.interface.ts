@@ -1,4 +1,4 @@
-import { RolesEnum } from "../constants/enum/RolesEnum";
+import { RolesEnum } from '../constants/enum/RolesEnum';
 
 export interface INavbarRoute {
   name: string;

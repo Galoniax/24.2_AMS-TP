@@ -3,7 +3,9 @@ import { IBook } from '../interfaces/book.interface';
 import { IPagedResponse } from '../interfaces/common/page-response.interface';
 
 export const fetchAllBooks = async (
-  pageNumber?: number, pageSize?: number, categoryId?: number
+  pageNumber?: number,
+  pageSize?: number,
+  categoryId?: number,
 ): Promise<IPagedResponse<IBook>> => {
   const params: Record<string, number> = {};
 
@@ -15,11 +17,11 @@ export const fetchAllBooks = async (
   return response.data;
 };
 
-export const fetchBooksByCategoryId = async(id?: number): Promise<IBook[]> => {
+export const fetchBooksByCategoryId = async (id?: number): Promise<IBook[]> => {
   if (!id) return [];
   const response = await axiosInterceptor.get(`/books/catalog/${id}`);
   return response.data;
-}
+};
 
 export const fetchBookById = async (id: number): Promise<IBook> => {
   const response = await axiosInterceptor.get(`/books/${id}`);

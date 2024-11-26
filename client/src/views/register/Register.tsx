@@ -40,15 +40,21 @@ const Register = () => {
     !passwordError &&
     !confirmPasswordError;
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (isFormComplete) {
       try {
-        userRegister(email, password, username, dni, birthDate.toISOString());
+        await userRegister(
+          email,
+          password,
+          username,
+          dni,
+          birthDate.toISOString(),
+        );
         clearForm();
-        setTimeout(() => {
-          navigate(ROUTES.LOGIN);
-        }, 3000)
-      } catch (err: any) { LoggerService.error(err) }
+        navigate(ROUTES.LOGIN);
+      } catch (err: any) {
+        LoggerService.error(err);
+      }
     }
   };
 
@@ -76,7 +82,7 @@ const Register = () => {
     );
   };
 
-  const clearForm = ():void => {
+  const clearForm = (): void => {
     setEmail('');
     setUsername('');
     setDni('');
@@ -86,7 +92,7 @@ const Register = () => {
     setEmailError('');
     setPasswordError('');
     setConfirmPasswordError('');
-  }
+  };
 
   return (
     <div className="flex justify-center items-center h-screen w-full bg-slate-100">

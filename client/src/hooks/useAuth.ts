@@ -1,12 +1,12 @@
-import { login, register } from "../services/authService";
-import { IError } from "../interfaces/error.interface";
-import { toast } from "react-toastify";
-import { saveLs } from "../services/localStorageService";
-import { useDispatch } from "react-redux";
-import { USER_LOGIN_SUCCESS } from "../store/types";
-import { RolesEnum } from "../constants/enum/RolesEnum";
-import { useNavigate } from "react-router-dom";
-import { ROUTES } from "../constants/constants";
+import { login, register } from '../services/authService';
+import { IError } from '../interfaces/error.interface';
+import { toast } from 'react-toastify';
+import { saveLs } from '../services/localStorageService';
+import { useDispatch } from 'react-redux';
+import { USER_LOGIN_SUCCESS } from '../store/types';
+import { RolesEnum } from '../constants/enum/RolesEnum';
+import { useNavigate } from 'react-router-dom';
+import { ROUTES } from '../constants/constants';
 
 export const useAuth = () => {
   const dispatch = useDispatch();
@@ -24,41 +24,53 @@ export const useAuth = () => {
         email: email,
         role: response.role.toUpperCase(),
         token: response.token,
-      }
+      };
 
       dispatch({
         type: USER_LOGIN_SUCCESS,
         payload: userData,
       });
 
-      switch(userData.role) {
+      switch (userData.role) {
         case RolesEnum.ADMIN:
-          navigate(ROUTES.ADMIN_DASHBOARD)
-        break;
+          navigate(ROUTES.ADMIN_DASHBOARD);
+          break;
         case RolesEnum.EMPLOYEE:
-          navigate(ROUTES.CATALOG)
-        break;
+          navigate(ROUTES.CATALOG);
+          break;
         default:
-          navigate(ROUTES.BOOKS)
-        break;
+          navigate(ROUTES.BOOKS);
+          break;
       }
-
     } catch (err: IError | any) {
       toast.error(err.message || 'Error en el servidor');
     }
   };
 
-  const userRegister = async (email: string, password: string, username: string, dni: string, birthDate: string) => {
+  const userRegister = async (
+    email: string,
+    password: string,
+    username: string,
+    dni: string,
+    birthDate: string,
+  ) => {
     try {
-      const response = await register(email, password, username, dni, birthDate);
+      const response = await register(
+        email,
+        password,
+        username,
+        dni,
+        birthDate,
+      );
       toast.success(response.message);
     } catch (err: IError | any) {
-      toast.error(err.message || 'Error en el servidor');
+      // TODO: Fix handle error -------------------
+      toast.error('Nombre de usuario ya registrado');
     }
-  }
+  };
 
   return {
     authenticate,
-    userRegister
+    userRegister,
   };
 };

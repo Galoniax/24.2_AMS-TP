@@ -1,12 +1,12 @@
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../../store";
-import { toggleSidebar } from "../../store/actions/sidebar";
-import { motion } from "framer-motion";
-import { FaTimes } from "react-icons/fa";
-import { appConfig } from "../../config/ApplicationConfig";
-import { formatPrice } from "../../utils/formatPrice";
-import { clearCart, removeFromCart } from "../../store/actions/cart";
-import { MdDelete } from "react-icons/md";
+import { useDispatch, useSelector } from 'react-redux';
+import { RootState } from '../../store';
+import { toggleSidebar } from '../../store/actions/sidebar';
+import { motion } from 'framer-motion';
+import { FaTimes } from 'react-icons/fa';
+import { appConfig } from '../../config/ApplicationConfig';
+import { formatPrice } from '../../utils/formatPrice';
+import { clearCart, removeFromCart } from '../../store/actions/cart';
+import { MdDelete } from 'react-icons/md';
 
 const sidebarVariants = {
   open: { x: 0 },
@@ -38,7 +38,7 @@ const Sidebar: React.FC = () => {
       <button onClick={() => dispatch(toggleSidebar())} className="text-white">
         <FaTimes className="text-2xl" />
       </button>
-        <h3 className="text-center text-xl">Carrito</h3>
+      <h3 className="text-center text-xl">Carrito</h3>
       <div className="mt-4 max-h-[650px] overflow-y-auto flex flex-col gap-3">
         {cartItems.map((book, index) => (
           <div key={index} className="py-2 bg-white p-4 rounded-md relative">
@@ -52,7 +52,12 @@ const Sidebar: React.FC = () => {
               </div>
               <img src={book.imageUrl} alt={book.title} className="w-[100px]" />
             </div>
-            <button className="absolute top-0 left-2 bg-red-500 rounded my-2" onClick={() => handleRemoveItem(book.id || 0)}><MdDelete size={20} /></button>
+            <button
+              className="absolute top-0 left-2 bg-red-500 rounded my-2"
+              onClick={() => handleRemoveItem(book.id || 0)}
+            >
+              <MdDelete size={20} />
+            </button>
           </div>
         ))}
       </div>
@@ -63,8 +68,19 @@ const Sidebar: React.FC = () => {
         </span>
       </div>
       <div className="w-full flex items-center justify-between mt-4 gap-10">
-        <button className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"  onClick={handleClearCart}>Eliminar carrito</button>
-        <button className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300" onClick={handleClearCart} disabled={cartItems.length === 0}>Comprar</button>
+        <button
+          className="w-full bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600 transition duration-300"
+          onClick={handleClearCart}
+        >
+          Eliminar carrito
+        </button>
+        <button
+          className="w-full bg-green-500 text-white px-4 py-2 rounded hover:bg-green-600 transition duration-300"
+          onClick={handleClearCart}
+          disabled={cartItems.length === 0}
+        >
+          Comprar
+        </button>
       </div>
     </motion.aside>
   );

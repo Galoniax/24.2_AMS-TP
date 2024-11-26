@@ -10,7 +10,7 @@ export const appConfig = {
   MAIL_ADDRESS: 'mercantegero@gmail.com',
   CURRENCY_SYMBOL: '$',
   CURRENCY_TITLE: 'Pesos ARS',
-  API_URL: "http://localhost:5000/api/v1",
+  API_URL: 'http://localhost:5000/api/v1',
   DEFAULT_PAGE_NUMBER: 0,
-  DEFAULT_PAGE_SIZE: 10
+  DEFAULT_PAGE_SIZE: 10,
 };

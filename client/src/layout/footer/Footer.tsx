@@ -1,8 +1,8 @@
 import './footer.scss';
 import {
-  FaSquareYoutube ,
+  FaSquareYoutube,
   FaSquareWhatsapp,
-  FaSquareInstagram ,
+  FaSquareInstagram,
   FaTelegram,
   FaSquareXTwitter,
 } from 'react-icons/fa6';

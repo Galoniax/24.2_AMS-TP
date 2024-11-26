@@ -1,4 +1,3 @@
-
 export interface IError {
   response: IReponse;
   status: number;
@@ -9,9 +8,10 @@ export interface IError {
 }
 
 interface IReponse {
-  config: any,
-  data: IReponseError,
-  status: number,
+  config: any;
+  data: IReponseError;
+  status: number;
+  request: any;
 }
 
 interface IReponseError {

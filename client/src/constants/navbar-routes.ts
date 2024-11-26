@@ -6,29 +6,29 @@ export const NAVBAR_ROUTES: INavbarRoute[] = [
   {
     name: 'Home',
     path: ROUTES.HOME,
-    requiredAuth: false
+    requiredAuth: false,
   },
   {
     name: 'Libros',
     path: ROUTES.BOOKS,
-    requiredAuth: true
+    requiredAuth: true,
   },
   {
     name: 'Catálogo',
     path: ROUTES.CATALOG,
-    requiredAuth: true
+    requiredAuth: true,
   },
   {
     name: 'Iniciar sesión',
     path: ROUTES.LOGIN,
     requiredAuth: false,
-    hideOnAuth: true
+    hideOnAuth: true,
   },
   {
     name: 'Registrarse',
     path: ROUTES.REGISTER,
     requiredAuth: false,
-    hideOnAuth: true
+    hideOnAuth: true,
   },
   {
     name: 'Dashboard',
@@ -41,5 +41,5 @@ export const NAVBAR_ROUTES: INavbarRoute[] = [
     path: ROUTES.PROFILE,
     requiredAuth: true,
     role: [RolesEnum.EMPLOYEE, RolesEnum.CLIENT],
-  }
+  },
 ];

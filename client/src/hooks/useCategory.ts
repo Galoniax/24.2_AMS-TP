@@ -8,14 +8,14 @@ export const useCategory = () => {
   const fetchCategories = async () => {
     const categories = await fetchAllCategories();
     setCategories(categories);
-  }
+  };
 
   useEffect(() => {
     fetchCategories();
   }, []);
 
-  return { 
+  return {
     categories,
-    refrehCategories: fetchCategories
+    refrehCategories: fetchCategories,
   };
 };

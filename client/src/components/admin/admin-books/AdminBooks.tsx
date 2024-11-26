@@ -1,17 +1,21 @@
-import { useState } from "react";
-import { useSelector } from "react-redux";
-import { useBooks } from "../../../hooks/useBooks";
-import CardBook from "../../cards/CardBook";
-import { motion } from "framer-motion";
-import { GrAdd } from "react-icons/gr";
-import { createBook, deleteBook, updateBook } from "../../../services/bookService";
-import { IBook } from "../../../interfaces/book.interface";
-import { RootState } from "../../../store";
-import BookModal from "../../dialogs/BookModal";
-import { toast } from "react-toastify";
-import firebaseService from "../../../services/firebaseService";
-import { appConfig } from "../../../config/ApplicationConfig";
-import PaginationComponent from "../../pagination/PaginationComponent";
+import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { useBooks } from '../../../hooks/useBooks';
+import CardBook from '../../cards/CardBook';
+import { motion } from 'framer-motion';
+import { GrAdd } from 'react-icons/gr';
+import {
+  createBook,
+  deleteBook,
+  updateBook,
+} from '../../../services/bookService';
+import { IBook } from '../../../interfaces/book.interface';
+import { RootState } from '../../../store';
+import BookModal from '../../dialogs/BookModal';
+import { toast } from 'react-toastify';
+import firebaseService from '../../../services/firebaseService';
+import { appConfig } from '../../../config/ApplicationConfig';
+import PaginationComponent from '../../pagination/PaginationComponent';
 
 const AdminBooks = () => {
   const currentUser = useSelector((state: RootState) => state.auth);
@@ -19,7 +23,6 @@ const AdminBooks = () => {
 
   const [pageNumber, setPageNumber] = useState(appConfig.DEFAULT_PAGE_NUMBER);
   const [pageSize, setPageSize] = useState(appConfig.DEFAULT_PAGE_SIZE);
-
 
   const { allBooks, refreshBooks } = useBooks(pageNumber, pageSize);
   const [showModal, setShowModal] = useState(false);
@@ -34,19 +37,22 @@ const AdminBooks = () => {
     setPageNumber(newPage);
   };
 
-  const handleCreateOrUpdateBook = async (book: IBook, imageFile: File | null) => {
+  const handleCreateOrUpdateBook = async (
+    book: IBook,
+    imageFile: File | null,
+  ) => {
     try {
       if (imageFile) {
         const imageUrl = await firebaseService.saveImageBook(imageFile);
         book.imageUrl = imageUrl;
       }
       book.id ? await updateBook(book.id, book) : await createBook(book);
-      toast.success(book.id ? "Libro actualizado" : "Nuevo libro creado");
+      toast.success(book.id ? 'Libro actualizado' : 'Nuevo libro creado');
       setShowModal(false);
       setEditBook(null);
       refreshBooks();
     } catch (error) {
-      toast.error("Error al guardar el libro");
+      toast.error('Error al guardar el libro');
     }
   };
 
@@ -59,10 +65,10 @@ const AdminBooks = () => {
     try {
       await deleteBook(bookId);
       setShowModal(false);
-      toast.success("Libro eliminado");
+      toast.success('Libro eliminado');
       refreshBooks();
     } catch (error) {
-      toast.error("Error al eliminar el libro");
+      toast.error('Error al eliminar el libro');
     }
   };
 
@@ -92,15 +98,17 @@ const AdminBooks = () => {
           onPageSizeChange={handlePageSizeChange}
         >
           <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
-            {(allBooks && allBooks.items.length > 0) && allBooks.items.map((book) => (
-              <CardBook
-                key={book.id}
-                book={book}
-                showButton={false}
-                userRole={userRole || null}
-                onEditBook={handleEditClick}
-              />
-            ))}
+            {allBooks &&
+              allBooks.items.length > 0 &&
+              allBooks.items.map((book) => (
+                <CardBook
+                  key={book.id}
+                  book={book}
+                  showButton={false}
+                  userRole={userRole || null}
+                  onEditBook={handleEditClick}
+                />
+              ))}
           </motion.div>
         </PaginationComponent>
       </div>

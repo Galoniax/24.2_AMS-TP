@@ -1,4 +1,4 @@
-import { TOGGLE_SIDEBAR } from "../types";
+import { TOGGLE_SIDEBAR } from '../types';
 
 interface SidebarState {
   isOpen: boolean;

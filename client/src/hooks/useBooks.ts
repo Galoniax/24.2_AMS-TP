@@ -4,9 +4,9 @@ import { fetchAllBooks } from '../services/bookService';
 import { IPagedResponse } from '../interfaces/common/page-response.interface';
 
 export const useBooks = (
-  pageNumber?: number, 
-  pageSize?: number, 
-  categoryId?: number
+  pageNumber?: number,
+  pageSize?: number,
+  categoryId?: number,
 ) => {
   const [allBooks, setAllBooks] = useState<IPagedResponse<IBook>>();
   const [isFetching, setIsFetching] = useState(false);

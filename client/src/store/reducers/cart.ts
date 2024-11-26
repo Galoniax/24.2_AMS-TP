@@ -1,5 +1,5 @@
-import { IBook } from "../../interfaces/book.interface";
-import { ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART } from "../types";
+import { IBook } from '../../interfaces/book.interface';
+import { ADD_TO_CART, CLEAR_CART, REMOVE_FROM_CART } from '../types';
 
 interface CartState {
   cartItems: IBook[];
@@ -14,7 +14,9 @@ const initialState: CartState = {
 const cartReducer = (state = initialState, action: any) => {
   switch (action.type) {
     case ADD_TO_CART:
-      const existingItem = state.cartItems.find(item => item.id === action.payload.id);
+      const existingItem = state.cartItems.find(
+        (item) => item.id === action.payload.id,
+      );
       if (existingItem) {
         return state;
       }
@@ -28,8 +30,12 @@ const cartReducer = (state = initialState, action: any) => {
       };
 
     case REMOVE_FROM_CART:
-      const filteredCartItems = state.cartItems.filter(item => item.id !== action.payload.id);
-      const removedItem = state.cartItems.find(item => item.id === action.payload.id);
+      const filteredCartItems = state.cartItems.filter(
+        (item) => item.id !== action.payload.id,
+      );
+      const removedItem = state.cartItems.find(
+        (item) => item.id === action.payload.id,
+      );
       const updatedTotalPrice = state.totalPrice - (removedItem?.price ?? 0);
 
       return {

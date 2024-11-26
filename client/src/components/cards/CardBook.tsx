@@ -17,7 +17,12 @@ interface CardBookProps {
   onEditBook?: (book: IBook) => void;
 }
 
-const CardBook: React.FC<CardBookProps> = ({ book, showButton = true, userRole = undefined, onEditBook }) => {
+const CardBook: React.FC<CardBookProps> = ({
+  book,
+  showButton = true,
+  userRole = undefined,
+  onEditBook,
+}) => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
@@ -30,10 +35,12 @@ const CardBook: React.FC<CardBookProps> = ({ book, showButton = true, userRole =
   };
 
   return (
-    <motion.div className="border p-4 rounded-[12px] shadow-lg w-[220px] h-[440px] flex flex-col items-center justify-between"
+    <motion.div
+      className="border p-4 rounded-[12px] shadow-lg w-[220px] h-[440px] flex flex-col items-center justify-between"
       initial="initial"
       animate="animate"
-      variants={fadeInUp}>
+      variants={fadeInUp}
+    >
       <img
         src={book.imageUrl}
         alt={book.title}
@@ -60,7 +67,7 @@ const CardBook: React.FC<CardBookProps> = ({ book, showButton = true, userRole =
             iconClassName="text-[20px]"
           ></Button>
         )}
-        {userRole === RolesEnum.ADMIN &&
+        {userRole === RolesEnum.ADMIN && (
           <Button
             text="Editar"
             type="button"
@@ -72,7 +79,7 @@ const CardBook: React.FC<CardBookProps> = ({ book, showButton = true, userRole =
             iconPosition="left"
             iconClassName="text-[20px]"
           ></Button>
-        }
+        )}
       </div>
     </motion.div>
   );

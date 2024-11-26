@@ -1,4 +1,3 @@
-
 export interface IPagedResponse<T> {
   items: T[];
   isLast: boolean;
@@ -7,4 +6,3 @@ export interface IPagedResponse<T> {
   totalItems: number;
   totalPages: number;
 }
-

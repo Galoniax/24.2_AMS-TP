@@ -1,4 +1,4 @@
-import { MdArrowBackIosNew, MdArrowForwardIos } from "react-icons/md";
+import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 
 interface PaginationProps {
   children: React.ReactNode;
@@ -19,20 +19,31 @@ const PaginationComponent = ({
   totalPages,
   isLast,
   onPageChange,
-  onPageSizeChange
+  onPageSizeChange,
 }: PaginationProps) => {
-
-  const handlePageSizeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+  const handlePageSizeChange = (
+    event: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const pageSize = parseInt(event.target.value);
     onPageSizeChange(pageSize);
   };
 
   return (
-    <div className="w-full grid min-h-[80dvh] relative" style={{ gridTemplateRows: 'auto 1fr auto' }}>
+    <div
+      className="w-full grid min-h-[80dvh] relative"
+      style={{ gridTemplateRows: 'auto 1fr auto' }}
+    >
       <div className="w-full bg-main flex justify-between items-center px-2 py-4">
         <div className="flex items-center justify-start gap-2">
-          <label htmlFor="paginationSize" className="text-white">Mostrando</label>
-          <select id="paginationSize" className="p-2 border rounded shadow border-gray-400" onChange={handlePageSizeChange} value={pageSize}>
+          <label htmlFor="paginationSize" className="text-white">
+            Mostrando
+          </label>
+          <select
+            id="paginationSize"
+            className="p-2 border rounded shadow border-gray-400"
+            onChange={handlePageSizeChange}
+            value={pageSize}
+          >
             <option value={10}>10 elementos</option>
             <option value={15}>15 elementos</option>
             <option value={20}>20 elementos</option>
@@ -42,9 +53,7 @@ const PaginationComponent = ({
         </div>
         <h3 className="text-white">Total de libros: {totalItems}</h3>
       </div>
-      <div className="w-full overflow-auto">
-        {children}
-      </div>
+      <div className="w-full overflow-auto">{children}</div>
       <div className="w-full flex gap-2 items-center justify-between mt-2 bg-main px-2 py-3">
         <span className="text-white">
           <b>Página</b> {pageNumber + 1} de {totalPages}

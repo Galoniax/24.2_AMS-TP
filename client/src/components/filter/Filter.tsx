@@ -7,7 +7,8 @@ import { Nullable } from '../../constants/constants';
 const Filter = ({ onSelectCategory }: any) => {
   const { categories } = useCategory();
 
-  const [selectedCategory, setSelectedCategory] = useState<Nullable<number>>(null);
+  const [selectedCategory, setSelectedCategory] =
+    useState<Nullable<number>>(null);
 
   const handleCategoryChange = (categoryId: Nullable<number>) => {
     if (selectedCategory === categoryId) {
@@ -85,7 +86,10 @@ const Filter = ({ onSelectCategory }: any) => {
                 onChange={() => handleCategoryChange(category.id)}
                 value={category.id || ''}
               />
-              <label htmlFor={`filter_by_${category.id}`} className="text-md text-blue-700">
+              <label
+                htmlFor={`filter_by_${category.id}`}
+                className="text-md text-blue-700"
+              >
                 {category.name}
               </label>
             </div>

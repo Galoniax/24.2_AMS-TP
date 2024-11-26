@@ -62,7 +62,7 @@ const Home = () => {
   }, []);
 
   useEffect(() => {
-    if(windowSize.isMobile) {
+    if (windowSize.isMobile) {
       scaleProgress.set(1);
       opacityProgress.set(1);
     } else {
@@ -164,7 +164,8 @@ const Home = () => {
         ))}
       </div>
 
-      <motion.section className=" w-[100%] p-[100px] min-h-[700px] flex  justify-evenly  gap-[150px]"
+      <motion.section
+        className=" w-[100%] p-[100px] min-h-[700px] flex  justify-evenly  gap-[150px]"
         ref={cardRef}
         style={{
           scale: scaleProgress,
@@ -271,8 +272,6 @@ const Home = () => {
           </div>
         </div>
       </section>
-
-      
     </div>
   );
 };

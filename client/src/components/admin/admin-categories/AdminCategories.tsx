@@ -1,12 +1,15 @@
-import { GrAdd } from "react-icons/gr";
-import { useCategory } from "../../../hooks/useCategory";
-import { useState } from "react";
-import { BiEdit } from "react-icons/bi";
-import CategoryModal from "../../dialogs/CategoryModal";
-import { ICategory } from "../../../interfaces/category.interface";
-import { createCategory, deleteCategory, updateCategory } from "../../../services/categoryService";
-import { toast } from "react-toastify";
-
+import { GrAdd } from 'react-icons/gr';
+import { useCategory } from '../../../hooks/useCategory';
+import { useState } from 'react';
+import { BiEdit } from 'react-icons/bi';
+import CategoryModal from '../../dialogs/CategoryModal';
+import { ICategory } from '../../../interfaces/category.interface';
+import {
+  createCategory,
+  deleteCategory,
+  updateCategory,
+} from '../../../services/categoryService';
+import { toast } from 'react-toastify';
 
 const AdminCategories = () => {
   const { categories, refrehCategories } = useCategory();
@@ -14,8 +17,12 @@ const AdminCategories = () => {
   const [editCategory, setEditCategory] = useState<ICategory | null>(null);
 
   const handleCreateOrUpdateCategory = async (category: ICategory) => {
-    category.id ? await updateCategory(category.id, category) : await createCategory(category);
-    toast.success(category.id ? "Categoria actualizada" : "Nueva categoria creada");
+    category.id
+      ? await updateCategory(category.id, category)
+      : await createCategory(category);
+    toast.success(
+      category.id ? 'Categoria actualizada' : 'Nueva categoria creada',
+    );
     setShowModal(false);
     setEditCategory(null);
     refrehCategories();
@@ -30,10 +37,10 @@ const AdminCategories = () => {
     try {
       await deleteCategory(bookId);
       setShowModal(false);
-      toast.success("Categoria eliminada");
+      toast.success('Categoria eliminada');
       refrehCategories();
     } catch (error) {
-      toast.error("Error al eliminar la Categoria");
+      toast.error('Error al eliminar la Categoria');
     }
   };
 
@@ -68,11 +75,17 @@ const AdminCategories = () => {
                 key={category.id}
                 className="border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out"
               >
-                <td className="py-3 px-6 text-left whitespace-nowrap font-medium">{category.id}</td>
+                <td className="py-3 px-6 text-left whitespace-nowrap font-medium">
+                  {category.id}
+                </td>
                 <td className="py-3 px-6 text-left">{category.name}</td>
                 <td>
                   <div className="flex gap-2 justify-center">
-                    <button onClick={() => handleEditClick(category)} type="button" className="text-blue-600 hover:text-blue-800">
+                    <button
+                      onClick={() => handleEditClick(category)}
+                      type="button"
+                      className="text-blue-600 hover:text-blue-800"
+                    >
                       <BiEdit size={20} />
                     </button>
                   </div>
@@ -90,7 +103,7 @@ const AdminCategories = () => {
         onDelete={handleDelete}
       />
     </div>
-  )
-}
+  );
+};
 
 export default AdminCategories;

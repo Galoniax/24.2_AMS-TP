@@ -24,7 +24,7 @@ axiosInterceptor.interceptors.request.use(
   (error) => {
     store.dispatch({ type: SET_LOADING, payload: false });
     return Promise.reject(error);
-  }
+  },
 );
 
 axiosInterceptor.interceptors.response.use(
@@ -36,7 +36,7 @@ axiosInterceptor.interceptors.response.use(
     store.dispatch({ type: SET_LOADING, payload: false });
     LoggerService.error('Error en la respuesta', error);
     return Promise.reject(error);
-  }
+  },
 );
 
 export default axiosInterceptor;

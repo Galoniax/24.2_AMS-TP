@@ -5,7 +5,7 @@ import { NAVBAR_ROUTES } from '../../constants/navbar-routes';
 import { useDispatch, useSelector } from 'react-redux';
 import { AppDispatch, RootState } from '../../store';
 import { RolesEnum } from '../../constants/enum/RolesEnum';
-import {  FaBell, FaSignOutAlt, FaUser } from 'react-icons/fa';
+import { FaBell, FaSignOutAlt, FaUser } from 'react-icons/fa';
 import { useEffect, useRef, useState } from 'react';
 import { logout } from '../../store/actions/logout';
 import { AnimatePresence, motion } from 'framer-motion';
@@ -21,14 +21,16 @@ const Navbar = () => {
   const [showMenu, setShowMenu] = useState(false);
   const menuRef = useRef<HTMLDivElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
-  const cartItemCount = useSelector((state: RootState) => state.cart.cartItems.length);
+  const cartItemCount = useSelector(
+    (state: RootState) => state.cart.cartItems.length,
+  );
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
       if (
-        menuRef.current && 
+        menuRef.current &&
         !menuRef.current.contains(event.target as Node) &&
-        buttonRef.current && 
+        buttonRef.current &&
         !buttonRef.current.contains(event.target as Node)
       ) {
         setShowMenu(false);
@@ -56,55 +58,58 @@ const Navbar = () => {
         <div>
           <img src={logo} alt="" className="w-[50px]" />
         </div>
-        <div className='flex items-center gap-10'>
+        <div className="flex items-center gap-10">
           <ul className="flex gap-10">
-              {NAVBAR_ROUTES.map((route) => {
-                if (route.hideOnAuth && isAuthenticated) {
-                  return null;
-                }
+            {NAVBAR_ROUTES.map((route) => {
+              if (route.hideOnAuth && isAuthenticated) {
+                return null;
+              }
 
-                if (route.requiredAuth && !isAuthenticated) {
-                  return null;
-                }
+              if (route.requiredAuth && !isAuthenticated) {
+                return null;
+              }
 
-                if (route.role && (!userRole || !route.role.includes(userRole as RolesEnum))) {
-                  return null;
-                }
-                const isActive = location.pathname === route.path;
+              if (
+                route.role &&
+                (!userRole || !route.role.includes(userRole as RolesEnum))
+              ) {
+                return null;
+              }
+              const isActive = location.pathname === route.path;
 
-                return (
-                  <motion.li
+              return (
+                <motion.li
+                  key={route.name}
+                  className="text-sm cursor-pointer"
+                  whileHover={{ scale: 1.1 }}
+                  transition={{
+                    type: 'spring',
+                    stiffness: 500,
+                    damping: 20,
+                  }}
+                >
+                  <Link
                     key={route.name}
-                    className="text-sm cursor-pointer"
-                    whileHover={{ scale: 1.1 }}
-                    transition={{
-                      type: "spring",
-                      stiffness: 500,
-                      damping: 20,
-                    }}
+                    to={route.path}
+                    className={`text-white text-base cursor-pointer ${isActive ? 'font-bold underline' : ''}`}
                   >
-                    <Link
-                      key={route.name}
-                      to={route.path}
-                      className={`text-white text-base cursor-pointer ${isActive ? "font-bold underline" : ""}`}
-                    >
-                      {route.name}
-                    </Link>
-                  </motion.li>
-                );
-              })}
+                    {route.name}
+                  </Link>
+                </motion.li>
+              );
+            })}
           </ul>
         </div>
-        <div className='flex items-center gap-4'>
-        <div className="relative">
-          <button onClick={() => dispatch(toggleSidebar())} className="p-2">
-            <FaCartFlatbed className="text-2xl text-white" />
-          </button>
-          {cartItemCount > 0 && (
-            <span className="absolute top-[-5px] right-[-5px] bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-              {cartItemCount}
-            </span>
-          )}
+        <div className="flex items-center gap-4">
+          <div className="relative">
+            <button onClick={() => dispatch(toggleSidebar())} className="p-2">
+              <FaCartFlatbed className="text-2xl text-white" />
+            </button>
+            {cartItemCount > 0 && (
+              <span className="absolute top-[-5px] right-[-5px] bg-green-600 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {cartItemCount}
+              </span>
+            )}
           </div>
           <div className="relative">
             {isAuthenticated && (
@@ -112,7 +117,7 @@ const Navbar = () => {
                 <motion.button
                   whileHover={{ scale: 1.2 }}
                   transition={{
-                    type: "spring",
+                    type: 'spring',
                     stiffness: 500,
                     damping: 20,
                   }}
@@ -125,14 +130,14 @@ const Navbar = () => {
                   {showMenu && (
                     <motion.div
                       initial={{ height: 0, opacity: 0 }}
-                      animate={{ height: "auto", opacity: 1 }}
+                      animate={{ height: 'auto', opacity: 1 }}
                       exit={{ height: 0, opacity: 0 }}
                       transition={{
                         duration: 0.5,
-                        type: "spring",
+                        type: 'spring',
                         stiffness: 500,
                         damping: 30,
-                        opacity: { duration: 0.2 }
+                        opacity: { duration: 0.2 },
                       }}
                       className="absolute right-0 mt-1 w-48 bg-white border border-gray-200 rounded-md shadow-lg py-2 overflow-hidden"
                     >

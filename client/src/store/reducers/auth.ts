@@ -4,7 +4,7 @@ import {
   USER_LOGOUT_FAIL,
   USER_LOGOUT_SUCCESS,
   SET_LOADING,
-} from "../types";
+} from '../types';
 
 const initialState = {
   user_data: {

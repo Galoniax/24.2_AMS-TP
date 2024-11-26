@@ -1,4 +1,4 @@
-import { useUsers } from "../../../hooks/useUsers";
+import { useUsers } from '../../../hooks/useUsers';
 
 const AdminUsers = () => {
   const { allUsers } = useUsers();
@@ -25,7 +25,9 @@ const AdminUsers = () => {
                 key={user.id}
                 className="border-b border-gray-200 hover:bg-gray-100 transition duration-300 ease-in-out"
               >
-                <td className="py-3 px-6 text-left whitespace-nowrap font-medium">{user.id}</td>
+                <td className="py-3 px-6 text-left whitespace-nowrap font-medium">
+                  {user.id}
+                </td>
                 <td className="py-3 px-6 text-left">{user.username}</td>
                 <td className="py-3 px-6 text-left">{user.email}</td>
                 <td className="py-3 px-6 text-left">{user.role || 'CLIENT'}</td>
@@ -33,10 +35,9 @@ const AdminUsers = () => {
             ))}
           </tbody>
         </table>
-
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default AdminUsers;

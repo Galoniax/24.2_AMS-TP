@@ -9,10 +9,15 @@ import { motion } from 'framer-motion';
 import PaginationComponent from '../../components/pagination/PaginationComponent';
 
 const Catalog = () => {
-  const [selectedCategoryId, setSelectedCategoryId] = useState<Nullable<number>>(null);
+  const [selectedCategoryId, setSelectedCategoryId] =
+    useState<Nullable<number>>(null);
   const [pageNumber, setPageNumber] = useState(appConfig.DEFAULT_PAGE_NUMBER);
   const [pageSize, setPageSize] = useState<number>(appConfig.DEFAULT_PAGE_SIZE);
-  const { allBooks } = useBooks(pageNumber, pageSize, selectedCategoryId || undefined);
+  const { allBooks } = useBooks(
+    pageNumber,
+    pageSize,
+    selectedCategoryId || undefined,
+  );
 
   const handleSelectCategory = (categoryId: number | null) => {
     setPageNumber(appConfig.DEFAULT_PAGE_NUMBER);
@@ -42,7 +47,9 @@ const Catalog = () => {
           </h3>
           <div className="flex gap-5 items-center">
             <p>
-              Mostrando <span className="font-bold">{allBooks?.totalItems || 0}</span> resultados
+              Mostrando{' '}
+              <span className="font-bold">{allBooks?.totalItems || 0}</span>{' '}
+              resultados
             </p>
             <select
               name="filter_by"
@@ -69,22 +76,26 @@ const Catalog = () => {
             onPageChange={handlePageChange}
             onPageSizeChange={handlePageSizeChange}
           >
-          
-            {
-              allBooks && allBooks.items.length > 0 ? 
+            {allBooks && allBooks.items.length > 0 ? (
               <motion.div className="flex gap-5 flex-wrap justify-start mt-4">
                 {allBooks.items.map((book) => (
                   <CardBook key={book.id} book={book} />
                 ))}
               </motion.div>
-              :
-              <div className='w-full h-full flex items-start justify-center py-10'>
-                <div className='w-full flex flex-col items-center justify-center py-10 bg-slate-100 gap-5'>
-                  <img src={NoBooksImg} alt="No se encontraron libros. Imagen generada por IA" className='w-[300px] h-[300px] object-contain' />
-                  <p className='text-3xl'>Lo sentimos, no hay libros disponibles para esa categoría</p>
+            ) : (
+              <div className="w-full h-full flex items-start justify-center py-10">
+                <div className="w-full flex flex-col items-center justify-center py-10 bg-slate-100 gap-5">
+                  <img
+                    src={NoBooksImg}
+                    alt="No se encontraron libros. Imagen generada por IA"
+                    className="w-[300px] h-[300px] object-contain"
+                  />
+                  <p className="text-3xl">
+                    Lo sentimos, no hay libros disponibles para esa categoría
+                  </p>
                 </div>
               </div>
-            }
+            )}
           </PaginationComponent>
         </div>
       </div>
