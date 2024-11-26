@@ -9,7 +9,7 @@ from flask_cors import CORS
 
 app = Flask(__name__, static_folder='templates/assets')
 
-origins = ["http://localhost:5173", "http://127.0.0.1:5000"]
+origins = ["http://localhost:5173", "http://127.0.0.1:5000", "http://127.0.0.1:5173"]
 
 CORS(app, origins=origins, supports_credentials=True)
 
