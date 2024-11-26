@@ -220,7 +220,7 @@ const Home = () => {
         </div>
       </motion.section>
 
-      <section className=" w-[100%] min-h-[500px]">
+      <section className=" w-[100%] min-h-[500px] my-10">
         <div className=" border-t-[1px] flex  justify-between items-center px-[100px]">
           <div className="w-[50%]">
             <h4 className="textNunito tracking-[2px] text-sm text-sky-700">
@@ -272,22 +272,7 @@ const Home = () => {
         </div>
       </section>
 
-      <section className="border-t-[1px] mt-[100px] pt-[100px] w-[100%] ">
-        <div className=" flex px-[100px] min-h-[800px]">
-          <div className="w-[45%]">
-            <h4 className="textNunito tracking-[2px] text-sm text-sky-700">
-              Ventajas
-            </h4>
-            <h1 className="textNunitoMed text-[40px] m-w-[600px]">
-              Aprovecha al máximo tu experiencia en nuestra librería
-            </h1>
-          </div>
-
-          <div className="w-[55%]">
-            <div className="w-[100%]"></div>
-          </div>
-        </div>
-      </section>
+      
     </div>
   );
 };
