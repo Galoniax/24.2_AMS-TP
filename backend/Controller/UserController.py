@@ -50,6 +50,7 @@ def register():
 
   return jsonify({"message": "Usuario registrado exitosamente"}), 201
 
+# TODO: PAGINAR USUARIOS
 @user_controller.route('/users', methods=['GET'])
 @has_any_role(['ADMIN'])
 def get_users():

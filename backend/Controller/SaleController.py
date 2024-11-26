@@ -6,6 +6,8 @@ from backend.services import SaleService
 
 sale_controller = Blueprint('sale', __name__, url_prefix=f"/{API_PREFIX}/")
 
+# TODO: Se debe integrar estos servicios en el front end.
+
 @sale_controller.route('/', methods=['POST'])
 @token_required
 def register_sale():
@@ -27,7 +29,7 @@ def register_sale():
   except Exception as e:
     return jsonify({"message": str(e)}), 500
 
-
+# TODO: PAGINAR VENTAS (usar el DTO de PageResponse, ejemplos en BookController)
 @sale_controller.route('/', methods=['GET'])
 @token_required
 @has_any_role(['ADMIN'])

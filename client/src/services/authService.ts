@@ -1,6 +1,5 @@
 import axiosInterceptor from '../interceptor/axios-interceptor';
 import { IError } from '../interfaces/error.interface';
-import LoggerService from './loggerService';
 
 export const login = async (email: string, password: string) => {
   try {
